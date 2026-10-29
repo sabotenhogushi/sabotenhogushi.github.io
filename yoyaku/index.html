@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>ほぐし処 さぼてん ご予約</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap">
+<style>
+/* レイアウト：1カラムのスマホアプリ。上に店名（明朝）、真ん中に○×の週表、下に注意書き。紺×生成り×シャンパンゴールド */
+:root{
+  --bg:#f3f1ed; --surface:#fbfaf8; --ink:#232733; --mute:#6b6a70; --line:#dedad3;
+  --accent:#2c3a55; --accent-ink:#fbfaf8; --accent-soft:#e6e8ee; --gold:#a08a5f;
+  --free:#2c3a55; --taken:#c2bdb4; --closed:#ebe8e3; --warn:#934545; --warn-soft:#f3e6e3;
+  --f-display:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
+  --f-body:"Noto Sans JP","Hiragino Sans",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#16181d; --surface:#1e2128; --ink:#ebe8e2; --mute:#a19d96; --line:#33363e;
+  --accent:#cdb88e; --accent-ink:#1a1712; --accent-soft:#2c2a25; --gold:#cdb88e;
+  --free:#cdb88e; --taken:#4b4d54; --closed:#24272e; --warn:#e5a3a0; --warn-soft:#3a2626; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#16181d; --surface:#1e2128; --ink:#ebe8e2; --mute:#a19d96; --line:#33363e;
+  --accent:#cdb88e; --accent-ink:#1a1712; --accent-soft:#2c2a25; --gold:#cdb88e;
+  --free:#cdb88e; --taken:#4b4d54; --closed:#24272e; --warn:#e5a3a0; --warn-soft:#3a2626; color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.7 var(--f-body);-webkit-text-size-adjust:100%}
+.app{max-width:560px;margin:0 auto;padding-block:20px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:16px}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;margin:0;text-wrap:balance;line-height:1.35}
+h1{font-size:1.75rem;letter-spacing:.08em;font-weight:500}
+h2{font-size:1.2rem}
+h3{font-size:1rem}
+p{margin:0}
+.mute{color:var(--mute);font-size:.9rem}
+.small{font-size:.82rem}
+button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+a{color:var(--accent)}
+.demo{background:var(--warn-soft);color:var(--warn);border-radius:10px;padding:8px 12px;font-size:.85rem;font-weight:500}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+.head .eyebrow{font-size:.75rem;letter-spacing:.24em;color:var(--gold)}
+.head h1::after{content:"";display:block;width:32px;height:1px;background:var(--gold);margin-top:10px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.cta{display:block;width:100%;border:0;border-radius:10px;padding:16px;background:var(--accent);color:var(--accent-ink);font:500 1.15rem var(--f-display);letter-spacing:.2em}
+.cta:disabled{opacity:.5;cursor:not-allowed}
+.ghost{display:block;width:100%;border:1.5px solid var(--line);border-radius:12px;padding:12px;background:none;font-weight:500}
+.menu{display:flex;flex-direction:column;gap:14px}
+.course{display:flex;flex-direction:column;gap:4px}
+.course+.course{border-top:1px solid var(--line);padding-top:14px}
+.price-row{display:flex;justify-content:space-between;gap:8px;font-variant-numeric:tabular-nums}
+.price-row b{font-weight:700}
+.chip{display:inline-block;font-size:.72rem;font-weight:700;padding:1px 8px;border-radius:99px;background:var(--closed);color:var(--mute);margin-left:6px;vertical-align:2px}
+.note{border-left:2px solid var(--gold);padding:4px 0 4px 12px;font-size:.9rem}
+.tel{font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:.04em}
+.seg{display:flex;gap:4px;background:var(--closed);padding:4px;border-radius:12px}
+.seg button{flex:1;border:0;background:none;border-radius:9px;padding:8px 4px;font-weight:500}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--accent);font-weight:700;box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.weeknav{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.weeknav button{border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:6px 12px;font-size:.9rem}
+.weeknav button:disabled{opacity:.4;cursor:not-allowed}
+.gridwrap{overflow-x:auto;margin:0 -4px}
+table.grid{width:100%;border-collapse:separate;border-spacing:3px;table-layout:fixed;font-variant-numeric:tabular-nums}
+.grid th{font-weight:500;font-size:.78rem;line-height:1.25;padding:4px 0;color:var(--mute)}
+.grid th.d b{display:block;font-size:.95rem;color:var(--ink)}
+.grid th.sun{color:var(--warn)} .grid th.sat{color:var(--accent)}
+.grid th.tm{width:44px;text-align:right;padding-right:4px;font-size:.78rem}
+.grid td{padding:0;height:36px}
+.cell{display:flex;align-items:center;justify-content:center;width:100%;height:100%;border-radius:8px;border:0;font-weight:700;font-size:1.05rem}
+.cell.ok{background:var(--accent-soft);color:var(--free)}
+.cell.ok:hover{background:var(--accent);color:var(--accent-ink)}
+.cell.ng{background:none;color:var(--taken)}
+.cell.off{background:var(--closed);color:var(--mute);font-size:.72rem;font-weight:500}
+.legend{display:flex;gap:16px;font-size:.82rem;color:var(--mute);flex-wrap:wrap}
+.legend b{color:var(--free)} .legend i{font-style:normal;font-weight:700;color:var(--taken)}
+.pick{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;text-align:left;background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:12px 14px;font-variant-numeric:tabular-nums}
+.crow{display:flex;flex-direction:column;gap:6px}
+.crow+.crow{border-top:1px solid var(--line);padding-top:12px}
+.durs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.opt.dur{flex-direction:column;align-items:flex-start;gap:0;padding:10px 12px}
+.opt.dur small{font-size:.72rem;color:var(--mute)}
+.opt:disabled{opacity:.45;cursor:not-allowed}
+.cell.ok.part{background:none;border:1.5px solid var(--accent-soft)}
+.opt[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+label{display:block;font-weight:500;font-size:.92rem}
+input{display:block;width:100%;margin-top:4px;font:inherit;font-size:16px;color:var(--ink);background:var(--surface);border:2px solid var(--line);border-radius:10px;padding:11px 12px}
+.summary{display:grid;grid-template-columns:5em 1fr;gap:4px 10px;margin:0;font-variant-numeric:tabular-nums}
+.summary dt{color:var(--mute)} .summary dd{margin:0;font-weight:500}
+.err{background:var(--warn-soft);color:var(--warn);border-radius:10px;padding:10px 12px;font-weight:500;font-size:.92rem}
+.done{text-align:center;align-items:center}
+.done .mark{width:56px;height:56px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;font-size:1.6rem;font-weight:700}
+.done .summary{text-align:left}
+.foot{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.foot button{border:0;background:none;color:var(--mute);font-size:.78rem;text-decoration:underline;padding:4px}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:var(--closed);padding:4px;border-radius:12px}
+.tabs button{border:0;background:none;border-radius:9px;padding:8px 2px;font-size:.85rem;font-weight:500}
+.tabs button[aria-pressed="true"]{background:var(--surface);color:var(--accent);font-weight:700}
+.day-h{font-family:var(--f-display);font-weight:700;margin-top:4px}
+.bk{border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:2px;background:var(--surface)}
+.bk .t{font-weight:700;font-variant-numeric:tabular-nums}
+.bk .via{font-size:.72rem;padding:1px 8px;border-radius:99px;background:var(--accent-soft);color:var(--accent);font-weight:700;margin-left:6px}
+.bk .acts{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap}
+.bk .acts a,.bk .acts button{font-size:.85rem;border:1.5px solid var(--line);border-radius:8px;padding:5px 12px;background:none;text-decoration:none;color:var(--ink)}
+.bk .acts .danger{border-color:var(--warn);color:var(--warn);font-weight:700}
+.cust{display:flex;flex-direction:column;gap:10px}
+.cu{border-bottom:1px solid var(--line);padding-bottom:10px;display:flex;flex-direction:column;gap:4px}
+.cu .top{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.cu .n{font-weight:700;min-width:0;overflow-wrap:anywhere}
+.cu .cnt{font-family:var(--f-display);font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums;white-space:nowrap}
+.cu .cnt small{font-size:.75rem;color:var(--mute);margin-left:2px}
+.dates{display:flex;flex-wrap:wrap;gap:4px}
+.dates span{font-size:.75rem;background:var(--closed);border-radius:6px;padding:1px 6px;font-variant-numeric:tabular-nums}
+.closelist{display:flex;flex-direction:column;gap:6px}
+.closelist button{display:flex;justify-content:space-between;align-items:center;width:100%;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--surface);font-variant-numeric:tabular-nums}
+.closelist button[aria-pressed="true"]{background:var(--closed);color:var(--mute)}
+.closelist button span:last-child{font-size:.82rem;font-weight:700}
+.loading{padding:40px 0;text-align:center;color:var(--mute)}
+@media (prefers-reduced-motion:no-preference){.cell,.opt,.cta{transition:background .15s,color .15s,border-color .15s}}
+</style>
+</head>
+<body>
+
+<div class="app" id="app"><p class="loading">読み込み中…</p></div>
+
+<script>
+(function(){
+'use strict';
+var WD='日月火水木金土';
+var IS_GAS=typeof google!=='undefined'&&google.script&&google.script.run;
+/* ▼ Apps Scriptの「ウェブアプリのURL」（…/exec）をここに入れます */
+var API_URL='https://script.google.com/macros/s/AKfycbxfnZ3Fqp_CAhvGXixw9FD9ws1cLtTen42JtPo-LFjUqRqikn4hVuV9pfNGYYdzfvLH/exec';
+var USE_API=!IS_GAS&&/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec$/.test(API_URL);
+
+/* ---------- 計算 ---------- */
+function toMin(hm){var p=String(hm).split(':');return +p[0]*60+ +p[1]}
+function fromMin(m){return Math.floor(m/60)+':'+('0'+m%60).slice(-2)}
+function yen(n){return '¥'+Number(n).toLocaleString('ja-JP')}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function md(ds){var d=new Date(ds+'T00:00:00Z');return (d.getUTCMonth()+1)+'/'+d.getUTCDate()+'('+WD[d.getUTCDay()]+')'}
+function slotOk(st,date,start,dur,lead){
+  var c=st.config,day=null;
+  for(var i=0;i<st.days.length;i++)if(st.days[i].date===date)day=st.days[i];
+  if(!day||day.closed)return false;
+  var open=toMin(c.open),close=toMin(c.close);
+  if(start<open||start+dur>close||(start-open)%c.step)return false;
+  if(date===st.today&&start<st.nowMin+lead)return false;
+  var l=st.busy[date]||[];
+  for(var j=0;j<l.length;j++)if(start<l[j][1]&&l[j][0]<start+dur)return false;
+  return true;
+}
+
+/* ---------- デモ用の仮サーバー（Googleで動かすと本物のサーバーに切り替わります） ---------- */
+var Mock=(function(){
+  var cfg={shopName:'ほぐし処 さぼてん',shopTel:'043-497-3109',address:'千葉県千葉市緑区土気町372-1（コインランドリー隣）',access:'昭和の森から車で2分・駐車場あり',open:'11:00',close:'21:00',step:30,leadMin:30,menu:[
+    {id:'relax',name:'リラックスコース',opts:[{min:30,price:2750,phoneOnly:true},{min:60,price:4400}]},
+    {id:'mix',name:'ミックスコース',opts:[{min:60,price:5500},{min:90,price:7700}]},
+    {id:'maint',name:'メンテナンスコース',opts:[{min:60,price:6600},{min:90,price:9900}]}]};
+  var now=new Date(),off=now.getTime()+9*3600000,jst=new Date(off);
+  var today=jst.toISOString().slice(0,10),nowMin=jst.getUTCHours()*60+jst.getUTCMinutes();
+  function addDays(n){return new Date(Date.parse(today+'T00:00:00Z')+n*86400000).toISOString().slice(0,10)}
+  var closed=[],B=[],seq=1,pass='hello';
+  function np(x){return String(x||'').normalize('NFKC').trim().toLowerCase()}
+  function passOk(x){return !pass||np(x)===np(pass)}
+  function add(d,s,course,min,price,name,tel,via){B.push({id:'d'+(seq++),date:d,start:s,end:fromMin(toMin(s)+min),course:course,min:min,price:price,name:name,tel:tel,status:'予約',via:via||'アプリ'})}
+  add(addDays(-20),'14:00','ミックスコース',60,5500,'見本 花子','09000000001');
+  add(addDays(-6),'11:00','ミックスコース',90,7700,'見本 花子','09000000001');
+  add(addDays(-3),'16:00','リラックスコース',60,4400,'例 太郎','09000000002');
+  add(addDays(1),'11:00','ミックスコース',90,7700,'見本 花子','09000000001');
+  add(addDays(1),'15:00','リラックスコース',30,2750,'例 太郎','09000000002','電話');
+  add(addDays(2),'13:00','メンテナンスコース',60,6600,'サンプル 一郎','09000000003');
+  add(addDays(3),'11:00','予定あり',120,0,'（店の予定）','','店の予定');
+  add(addDays(4),'18:00','ミックスコース',60,5500,'例 太郎','09000000002');
+  function days(){var o=[];for(var i=0;i<14;i++){var d=addDays(i),w=new Date(d+'T00:00:00Z').getUTCDay();o.push({date:d,w:w,closed:closed.indexOf(d)>=0})}return o}
+  function busy(){var m={};B.forEach(function(b){if(b.status!=='予約')return;(m[b.date]=m[b.date]||[]).push([toMin(b.start),toMin(b.end)])});return m}
+  function base(){return{config:cfg,today:today,nowMin:nowMin,days:days(),busy:busy()}}
+  function book(r,admin){
+    var st=base(),block=admin&&r.block===true,cn,min,price;
+    if(block){min=+r.min;cn='予定あり';price=0}
+    else{var c=cfg.menu.filter(function(x){return x.id===r.courseId})[0],o=c&&c.opts.filter(function(x){return x.min===+r.min})[0];
+      if(!o)return{ok:false,msg:'メニューを選んでください。'};if(o.phoneOnly&&!admin)return{ok:false,msg:'30分コースはお電話でご相談ください。'};cn=c.name;min=o.min;price=o.price}
+    var tel=block?'':String(r.tel||'').replace(/\D/g,''),name=block?'（店の予定）':String(r.name||'').trim().slice(0,30);
+    if(!block){if(!name)return{ok:false,msg:'お名前を入力してください。'};if(!/^0\d{9,10}$/.test(tel))return{ok:false,msg:'電話番号を、0から始まる10〜11桁で入力してください。'}}
+    if(!slotOk(st,r.date,toMin(r.start),min,admin?0:cfg.leadMin))return{ok:false,msg:'その時間は埋まったか、予約できない時間です。別の時間を選んでください。',taken:true};
+    add(r.date,r.start,cn,min,price,name,tel,admin?(block?'店の予定':'電話'):'アプリ');
+    var b=B[B.length-1];return{ok:true,booking:{id:b.id,date:b.date,start:b.start,end:b.end,course:b.course,min:b.min,price:b.price,name:b.name}}
+  }
+  function pin(p){if(String(p)!=='0000')throw new Error('PINが違います。（デモのPINは 0000 です）')}
+  function customers(){var m={};B.forEach(function(b){if(b.status!=='予約'||b.course==='予定あり')return;var k=b.tel||b.name,c=m[k]||(m[k]={name:b.name,visits:0,dates:[],next:'',last:''});
+    var done=b.date<today||(b.date===today&&toMin(b.end)<=nowMin);if(done){c.visits++;c.dates.push(b.date);if(b.date>=c.last){c.last=b.date;c.name=b.name}}else if(!c.next||b.date<c.next)c.next=b.date});
+    return Object.keys(m).map(function(k){m[k].dates.sort().reverse();return m[k]}).sort(function(a,b){return b.visits-a.visits||(b.last>a.last?1:-1)})}
+  return{
+    api_init:function(p){if(!passOk(p))return{locked:true,wrong:!!p,config:{shopName:cfg.shopName,shopTel:cfg.shopTel}};return base()},
+    api_book:function(r){if(!passOk(r&&r.pass))return{ok:false,locked:true,msg:'合言葉が変わりました。もう一度入れてください。'};return book(r,false)},
+    api_admin:function(p){pin(p);var st=base();st.closed=closed.slice();
+      st.upcoming=B.filter(function(b){return b.status==='予約'&&(b.date>today||(b.date===today&&toMin(b.end)>nowMin))}).sort(function(a,b){return a.date<b.date?-1:a.date>b.date?1:toMin(a.start)-toMin(b.start)});
+      st.customers=customers();st.passcode=pass;return st},
+    api_adminSetPass:function(p,c){pin(p);pass=String(c||'').trim().slice(0,30);return{ok:true,passcode:pass}},
+    api_adminBook:function(p,r){pin(p);return book(r,true)},
+    api_adminCancel:function(p,id){pin(p);B.forEach(function(b){if(b.id===id)b.status='キャンセル'});return{ok:true}},
+    api_adminToggleClosed:function(p,d){pin(p);var i=closed.indexOf(d);if(i>=0)closed.splice(i,1);else closed.push(d);return{ok:true,closed:i<0}}
+  };
+})();
+
+function call(fn){
+  var args=Array.prototype.slice.call(arguments,1);
+  return new Promise(function(res,rej){
+    if(IS_GAS){var r=google.script.run.withSuccessHandler(res).withFailureHandler(function(e){rej(e)});r[fn].apply(r,args)}
+    else if(USE_API){
+      fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({fn:fn,args:args})})
+        .then(function(x){return x.json()})
+        .then(function(d){if(d&&d.__error)rej(new Error(d.__error));else res(d)})
+        .catch(function(){rej(new Error('通信できませんでした。電波の良いところで、もう一度お試しください。'))});
+    }
+    else setTimeout(function(){try{res(JSON.parse(JSON.stringify(Mock[fn].apply(null,args))))}catch(e){rej(e)}},250);
+  });
+}
+
+/* ---------- 状態 ---------- */
+var S={view:'home',st:null,dur:60,week:0,pick:null,course:null,name:'',tel:'',err:'',busy:false,done:null,
+  admin:false,pin:'',ad:null,atab:'list',akind:'course',adur:60,cf:null,pass:'',locked:false,wrong:false,newpass:null};
+try{S.name=localStorage.getItem('sb_name')||'';S.tel=localStorage.getItem('sb_tel')||''}catch(e){}
+try{S.pin=sessionStorage.getItem('sb_pin')||''}catch(e){}
+try{S.pass=localStorage.getItem('sb_pass')||''}catch(e){}
+var app=document.getElementById('app');
+
+function render(){
+  var st=S.admin?S.ad:S.st;
+  if(st&&st.config)document.title=st.config.shopName+(S.admin?' 管理':' ご予約');
+  var h='';
+  if(!IS_GAS&&!USE_API)h+='<p class="demo">デモ表示です。予約は保存されません（合言葉は hello、管理画面のPINは 0000）。</p>';
+  if(S.view==='pin')h+=vPin();
+  else if(S.admin)h+=vAdmin();
+  else if(S.locked)h+=vLock();
+  else if(!S.st)h+='<p class="loading">読み込み中…</p>';
+  else if(S.view==='home')h+=vHome();
+  else if(S.view==='sched')h+=vSched(S.st,60,S.st.config.leadMin,'cust');
+  else if(S.view==='form')h+=vForm();
+  else if(S.view==='done')h+=vDone();
+  app.innerHTML=h;
+}
+function header(sub){
+  var c=(S.admin?S.ad:S.st).config;
+  return '<header class="head"><div><p class="eyebrow">'+esc(sub)+'</p><h1>'+esc(c.shopName)+'</h1></div></header>';
+}
+function vLock(){
+  var c=S.lockCfg||{shopName:''};
+  return '<header class="head"><div><p class="eyebrow">フォロワー限定</p><h1>'+esc(c.shopName)+'</h1></div></header>'+
+    '<section class="panel"><h2>合言葉を入れてください</h2><p class="mute">このページはInstagramをフォローしてくださっている方専用です。合言葉はInstagramでお知らせしています。</p>'+
+    '<label for="f-pass">合言葉</label><input id="f-pass" data-f="passin" autocomplete="off" value="'+esc(S.passin||'')+'">'+
+    (S.wrong?'<p class="err" role="alert">合言葉が違います。Instagramで最新の合言葉をご確認ください。</p>':'')+
+    '<button class="cta" data-a="unlock"'+(S.busy?' disabled':'')+'>'+(S.busy?'確認中…':'ひらく')+'</button></section>'+
+    '<div class="foot"><span class="mute small">登録は不要です</span><button data-a="toadmin">お店の方</button></div>';
+}
+function telLine(c){return '<span class="tel">'+esc(c.shopTel)+'</span>'}
+
+/* ---------- お客様画面 ---------- */
+function vHome(){
+  var c=S.st.config;
+  var menu=c.menu.map(function(m){
+    return '<div class="course"><h3>'+esc(m.name)+'</h3>'+m.opts.map(function(o){
+      return '<div class="price-row"><span>'+o.min+'分'+(o.phoneOnly?'<span class="chip">お電話で</span>':'')+'</span><b>'+yen(o.price)+'</b></div>'}).join('')+'</div>'}).join('');
+  return header('ご予約')+
+    '<button class="cta" data-a="sched">予約する</button>'+
+    '<section class="panel"><h2>メニュー</h2><div class="menu">'+menu+'</div>'+
+    '<p class="note">アプリで予約できるのは<b>60分・90分</b>のコースです。<br>30分のコースはお電話でご相談ください。<br>'+telLine(c)+'</p></section>'+
+    (c.address?'<section class="panel"><h3>お店の場所</h3><p>'+esc(c.address)+'</p><p class="mute">'+esc(c.access||'')+'　営業 '+esc(c.open)+'〜'+esc(c.close)+'</p></section>':'')+
+    '<section class="panel"><h3>ご予約のあとに</h3><p class="mute">来られなくなったときや遅れそうなときは、お店にお電話ください。'+telLine(c)+'</p></section>'+
+    '<div class="foot"><span class="mute small">登録は不要です</span><button data-a="toadmin">お店の方</button></div>';
+}
+function vSched(st,dur,lead,mode){
+  var c=st.config,days=st.days.slice(S.week*7,S.week*7+7),open=toMin(c.open),close=toMin(c.close);
+  var rows='',t;
+  for(t=open;t+dur<=close;t+=c.step){
+    rows+='<tr><th class="tm" scope="row">'+fromMin(t)+'</th>'+days.map(function(d){
+      if(d.closed)return '<td><span class="cell off">休</span></td>';
+      if(mode==='cust'){
+        var l=slotOk(st,d.date,t,90,lead)?90:slotOk(st,d.date,t,60,lead)?60:0;
+        if(!l)return '<td><span class="cell ng" aria-label="予約できません">×</span></td>';
+        return '<td><button class="cell ok'+(l===60?' part':'')+'" data-a="slot" data-d="'+d.date+'" data-t="'+fromMin(t)+'" data-l="'+l+'" aria-label="'+md(d.date)+' '+fromMin(t)+(l===90?' 60分・90分とも空き':' 60分だけ空き')+'">'+(l===90?'○':'△')+'</button></td>';
+      }
+      return slotOk(st,d.date,t,dur,lead)?'<td><button class="cell ok" data-a="slot" data-d="'+d.date+'" data-t="'+fromMin(t)+'" aria-label="'+md(d.date)+' '+fromMin(t)+' 空き">○</button></td>':'<td><span class="cell ng" aria-label="予約できません">×</span></td>';
+    }).join('')+'</tr>';
+  }
+  var head='<tr><th class="tm"></th>'+days.map(function(d){
+    var x=new Date(d.date+'T00:00:00Z');
+    return '<th class="d'+(d.w===0?' sun':d.w===6?' sat':'')+'" scope="col">'+(x.getUTCMonth()+1)+'/<b>'+x.getUTCDate()+'</b>'+WD[d.w]+'</th>'}).join('')+'</tr>';
+  var durs=mode==='cust'?[60,90]:[30,60,90].concat(S.akind==='block'?[120,180]:[]);
+  var seg=mode==='cust'?'':'<div class="seg" role="group" aria-label="時間の長さ">'+durs.map(function(m){return '<button data-a="dur" data-v="'+m+'" aria-pressed="'+(dur===m)+'">'+m+'分</button>'}).join('')+'</div>';
+  var maxW=Math.ceil(st.days.length/7)-1;
+  var out=(mode==='cust'?header('空き状況')+'<button class="ghost" data-a="home">← メニューに戻る</button>':'')+
+    '<section class="panel">'+(mode==='cust'?'<h2>空いている時間を選んでください</h2>':'')+seg+
+    (S.err?'<p class="err" role="alert">'+esc(S.err)+'</p>':'')+
+    '<div class="weeknav"><button data-a="wk" data-v="-1"'+(S.week<=0?' disabled':'')+'>← 前の週</button><span class="mute small">'+md(days[0].date)+'〜'+md(days[days.length-1].date)+'</span><button data-a="wk" data-v="1"'+(S.week>=maxW?' disabled':'')+'>次の週 →</button></div>'+
+    '<div class="gridwrap"><table class="grid"><thead>'+head+'</thead><tbody>'+rows+'</tbody></table></div>'+
+    (mode==='cust'?'<div class="legend"><span><b>○</b> 60分・90分とも空き</span><span><b>△</b> 60分なら空き</span><span><i>×</i> 予約できません</span></div>':'<div class="legend"><span><b>○</b> 入れられます（押して選ぶ）</span><span><i>×</i> 予約・予定が入っています</span></div>')+
+    (mode==='cust'?'<p class="mute small">表示の時間は開始時間です。30分のコースはお電話で：'+telLine(c)+'</p>':'')+
+    '</section>';
+  return out;
+}
+function vForm(){
+  var c=S.st.config,p=S.pick,sel=null;
+  var rows=c.menu.map(function(m){
+    var btns=m.opts.filter(function(o){return !o.phoneOnly}).map(function(o){
+      var can=o.min<=p.l,on=S.course===m.id&&S.dur===o.min;
+      if(on)sel={name:m.name,min:o.min,price:o.price};
+      return '<button class="opt dur" data-a="course" data-v="'+m.id+'" data-m="'+o.min+'" aria-pressed="'+on+'"'+(can?'':' disabled')+'><span>'+o.min+'分</span><b>'+yen(o.price)+'</b>'+(can?'':'<small>この時間は空きなし</small>')+'</button>'}).join('');
+    var phone=m.opts.some(function(o){return o.phoneOnly})?'<p class="mute small">30分はお電話で：'+telLine(c)+'</p>':'';
+    return '<div class="crow"><h3>'+esc(m.name)+'</h3><div class="durs">'+btns+'</div>'+phone+'</div>'}).join('');
+  return header('ご予約内容')+
+    '<button class="ghost" data-a="back">← 時間を選び直す</button>'+
+    '<section class="panel"><dl class="summary"><dt>日時</dt><dd>'+md(p.date)+' '+p.start+(sel?'〜'+fromMin(toMin(p.start)+sel.min):'〜')+'</dd>'+(sel?'<dt>コース</dt><dd>'+esc(sel.name)+' '+sel.min+'分</dd>':'')+'</dl></section>'+
+    '<section class="panel"><h2>コースと時間を選ぶ</h2><div class="pick">'+rows+'</div></section>'+
+    '<section class="panel"><h2>お名前と電話番号</h2><p class="mute small">遅れるときなどにお店から連絡するために使います。登録はいりません。</p>'+
+    '<label for="f-name">お名前</label><input id="f-name" data-f="name" autocomplete="name" value="'+esc(S.name)+'" placeholder="例：山田 花子">'+
+    '<label for="f-tel">電話番号</label><input id="f-tel" data-f="tel" type="tel" inputmode="tel" autocomplete="tel" value="'+esc(S.tel)+'" placeholder="例：09012345678">'+
+    (S.err?'<p class="err" role="alert">'+esc(S.err)+'</p>':'')+
+    '<button class="cta" data-a="confirm"'+(S.busy||!sel?' disabled':'')+'>'+(S.busy?'送信中…':sel?'この内容で予約する（'+yen(sel.price)+'）':'コースと時間を選んでください')+'</button>'+
+    '<p class="mute small">お支払いは当日お店でお願いします。</p></section>';
+}
+function vDone(){
+  var b=S.done,c=S.st.config;
+  return '<section class="panel done"><div class="mark" aria-hidden="true">✓</div><h2>ご予約を受け付けました</h2>'+
+    '<dl class="summary"><dt>日時</dt><dd>'+md(b.date)+' '+b.start+'〜'+b.end+'</dd><dt>コース</dt><dd>'+esc(b.course)+' '+b.min+'分</dd><dt>料金</dt><dd>'+yen(b.price)+'</dd><dt>お名前</dt><dd>'+esc(b.name)+' 様</dd></dl>'+
+    '<p class="mute small">この画面を画面メモ（スクリーンショット）しておくと安心です。<br>来られない・遅れるときはお電話ください：'+telLine(c)+'</p></section>'+
+    '<button class="ghost" data-a="home">トップに戻る</button>';
+}
+
+/* ---------- 管理画面 ---------- */
+function vPin(){
+  return '<header class="head"><div><p class="eyebrow">お店の方</p><h1>管理画面</h1></div></header>'+
+    '<section class="panel"><label for="f-pin">管理者PIN</label><input id="f-pin" data-f="pin" type="password" inputmode="numeric" autocomplete="current-password" value="">'+
+    (S.err?'<p class="err" role="alert">'+esc(S.err)+'</p>':'')+
+    '<button class="cta" data-a="login"'+(S.busy?' disabled':'')+'>'+(S.busy?'確認中…':'ひらく')+'</button>'+
+    '<button class="ghost" data-a="exit">お客様の画面に戻る</button></section>';
+}
+function vAdmin(){
+  if(!S.ad)return '<p class="loading">読み込み中…</p>';
+  var tb=function(v,t){return '<button data-a="atab" data-v="'+v+'" aria-pressed="'+(S.atab===v)+'">'+t+'</button>'};
+  var h=header('管理画面')+'<nav class="tabs">'+tb('list','予約一覧')+tb('add','予定入力')+tb('cust','お客様')+tb('closed','設定')+'</nav>';
+  if(S.atab==='list')h+=aList();
+  else if(S.atab==='add')h+=aAdd();
+  else if(S.atab==='cust')h+=aCust();
+  else h+=aClosed();
+  h+='<div class="foot"><span class="mute small">最新の状態：'+esc(S.ad.today)+' '+fromMin(S.ad.nowMin)+'</span><button data-a="logout">管理画面を閉じる</button></div>';
+  return h;
+}
+function aList(){
+  var u=S.ad.upcoming;
+  if(!u.length)return '<section class="panel"><p class="mute">これからの予約はまだありません。新しい予約が入ると、ここに並び、メールでもお知らせします。</p></section>';
+  var out='',cur='';
+  u.forEach(function(b){
+    if(b.date!==cur){cur=b.date;out+='<p class="day-h">'+md(b.date)+(b.date===S.ad.today?' 今日':'')+'</p>'}
+    var c=S.cf===b.id,isBlock=b.course==='予定あり';
+    out+='<div class="bk"><span class="t">'+b.start+'〜'+b.end+'<span class="via">'+esc(b.via)+'</span></span>'+
+      '<span>'+esc(b.course)+(isBlock?'':' '+b.min+'分 '+yen(b.price))+'</span>'+
+      (isBlock?'':'<span>'+esc(b.name)+' 様　<span class="tel">'+esc(b.tel)+'</span></span>')+
+      '<div class="acts">'+(isBlock?'':'<a href="tel:'+esc(b.tel)+'">電話する</a>')+
+      '<button class="'+(c?'danger':'')+'" data-a="'+(c?'cancel2':'cancel')+'" data-v="'+esc(b.id)+'">'+(c?'本当に取り消す':'取り消す')+'</button>'+
+      (c?'<button data-a="cancelno">やめる</button>':'')+'</div></div>';
+  });
+  return (S.err?'<p class="err" role="alert">'+esc(S.err)+'</p>':'')+out;
+}
+function aAdd(){
+  var c=S.ad.config,h='';
+  var kinds='<div class="seg" role="group" aria-label="種類"><button data-a="akind" data-v="course" aria-pressed="'+(S.akind==='course')+'">お客様の予約</button><button data-a="akind" data-v="block" aria-pressed="'+(S.akind==='block')+'">店の予定（枠を埋める）</button></div>';
+  if(!S.pick)return '<section class="panel"><h2>予定を入れる</h2><p class="mute small">「店の予定」を選ぶと、予約を受けたくない時間を埋められます（お客様の画面では×になります）。電話で受けた予約（30分コースも）もここから入れられます。1日まるごと休む日は「設定」の休業日が便利です。</p>'+kinds+'</section>'+vSched(S.ad,S.adur,0,'admin');
+  var p=S.pick,opts=[];
+  c.menu.forEach(function(m){m.opts.forEach(function(o){if(o.min===S.adur)opts.push({id:m.id,name:m.name,min:o.min,price:o.price})})});
+  h+='<button class="ghost" data-a="back">← 時間を選び直す</button><section class="panel"><dl class="summary"><dt>日時</dt><dd>'+md(p.date)+' '+p.start+'〜'+fromMin(toMin(p.start)+S.adur)+'</dd><dt>種類</dt><dd>'+(S.akind==='block'?'店の予定':'お客様の予約')+'</dd></dl>';
+  if(S.akind==='course'){
+    h+='<div class="pick">'+opts.map(function(o){return '<button class="opt" data-a="course" data-v="'+o.id+'" aria-pressed="'+(S.course===o.id)+'"><span>'+esc(o.name)+' '+o.min+'分</span><b>'+yen(o.price)+'</b></button>'}).join('')+'</div>'+
+      '<label for="a-name">お名前</label><input id="a-name" data-f="aname" value="'+esc(S.aname||'')+'">'+
+      '<label for="a-tel">電話番号</label><input id="a-tel" data-f="atel" type="tel" inputmode="tel" value="'+esc(S.atel||'')+'">';
+  }
+  h+=(S.err?'<p class="err" role="alert">'+esc(S.err)+'</p>':'')+'<button class="cta" data-a="asave"'+(S.busy||(S.akind==='course'&&!S.course)?' disabled':'')+'>'+(S.busy?'保存中…':'この内容で入れる')+'</button></section>';
+  return h;
+}
+function aCust(){
+  var cs=S.ad.customers;
+  if(!cs.length)return '<section class="panel"><p class="mute">まだお客様の記録はありません。来店日が過ぎた予約から、ここに回数が数えられます。</p></section>';
+  return '<section class="panel"><h2>お客様リスト</h2><p class="mute small">電話番号が同じ方を同じお客様として数えています。回数は来店日が過ぎた予約の数です。</p><div class="cust">'+cs.map(function(c){
+    return '<div class="cu"><div class="top"><span class="n">'+esc(c.name)+' 様</span><span class="cnt">'+c.visits+'<small>回</small></span></div>'+
+      (c.dates.length?'<div class="dates">'+c.dates.map(function(d){return '<span>'+esc(d.replace(/-/g,'/'))+'</span>'}).join('')+'</div>':'')+
+      (c.next?'<span class="mute small">次の予約：'+md(c.next)+'</span>':'')+'</div>'}).join('')+'</div></section>';
+}
+function aClosed(){
+  var cur=S.ad.passcode||'',val=S.newpass==null?cur:S.newpass;
+  return '<section class="panel"><h2>合言葉（フォロワー限定）</h2><p class="mute small">合言葉を入れた人だけが予約ページを見られます。Instagramの投稿・ストーリーズ・親しい友達などで伝えてください。空にすると誰でも見られます。変えると、古い合言葉では入れなくなります。</p>'+
+    '<p>今の合言葉：<b>'+(cur?esc(cur):'なし（誰でも見られます）')+'</b></p>'+
+    '<label for="a-pass">新しい合言葉</label><input id="a-pass" data-f="newpass" autocomplete="off" value="'+esc(val)+'">'+
+    '<button class="cta" data-a="setpass"'+(S.busy?' disabled':'')+'>合言葉を保存</button></section>'+
+    '<section class="panel"><h2>休業日</h2><p class="mute small">押すと休み／営業が切り替わります。休みの日はお客様の画面で「休」になります。</p><div class="closelist">'+
+    S.ad.days.map(function(d){return '<button data-a="toggle" data-v="'+d.date+'" aria-pressed="'+d.closed+'"><span>'+md(d.date)+'</span><span>'+(d.closed?'休み':'営業')+'</span></button>'}).join('')+'</div>'+
+    (S.err?'<p class="err" role="alert">'+esc(S.err)+'</p>':'')+'</section>';
+}
+
+/* ---------- 通信 ---------- */
+function applyInit(r){if(r.locked){S.locked=true;S.wrong=r.wrong;S.lockCfg=r.config;S.st=null}else{S.locked=false;S.wrong=false;S.st=r;try{localStorage.setItem('sb_pass',S.pass)}catch(e){}}}
+function loadCust(){return call('api_init',S.pass).then(function(r){applyInit(r);render()}).catch(function(e){S.err='読み込めませんでした。電波の良いところで開き直してください。';app.innerHTML='<p class="err">'+esc(S.err)+'</p>'})}
+function loadAdmin(){return call('api_admin',S.pin).then(function(r){S.ad=r;S.admin=true;S.view='admin';S.err='';try{sessionStorage.setItem('sb_pin',S.pin)}catch(e){}render()})}
+function errMsg(e){return (e&&e.message)?e.message.replace(/^Exception:\s*/,''):'うまくいきませんでした。もう一度お試しください。'}
+
+/* ---------- 操作 ---------- */
+document.addEventListener('input',function(e){var f=e.target.getAttribute('data-f');if(f)S[f]=e.target.value});
+document.addEventListener('click',function(e){
+  var t=e.target.closest('[data-a]');if(!t||t.disabled)return;
+  var a=t.getAttribute('data-a'),v=t.getAttribute('data-v');
+  if(a==='sched'){S.view='sched';S.err='';S.week=0;loadCust()}
+  else if(a==='home'){S.view='home';S.err='';S.done=null}
+  else if(a==='dur'){if(S.admin)S.adur=+v;else S.dur=+v;S.err=''}
+  else if(a==='wk'){S.week+= +v}
+  else if(a==='slot'){S.pick={date:t.getAttribute('data-d'),start:t.getAttribute('data-t'),l:+(t.getAttribute('data-l')||0)};S.course=null;if(!S.admin)S.dur=null;S.err='';if(!S.admin)S.view='form'}
+  else if(a==='back'){S.pick=null;S.err='';if(!S.admin)S.view='sched'}
+  else if(a==='course'){S.course=v;if(!S.admin&&t.getAttribute('data-m'))S.dur=+t.getAttribute('data-m')}
+  else if(a==='confirm'){
+    S.err='';var tel=String(S.tel).replace(/\D/g,'');
+    if(!String(S.name).trim()){S.err='お名前を入力してください。'}
+    else if(!/^0\d{9,10}$/.test(tel)){S.err='電話番号を、0から始まる10〜11桁で入力してください。'}
+    else{
+      S.busy=true;render();
+      call('api_book',{date:S.pick.date,start:S.pick.start,courseId:S.course,min:S.dur,name:S.name,tel:tel,pass:S.pass}).then(function(r){
+        if(r.locked){S.busy=false;S.locked=true;S.wrong=false;S.pass='';S.pick=null;S.view='home';loadCust();return}
+        S.busy=false;
+        if(r.ok){S.done=r.booking;S.view='done';S.pick=null;try{localStorage.setItem('sb_name',S.name);localStorage.setItem('sb_tel',tel)}catch(e){}loadCust()}
+        else{S.err=r.msg;if(r.taken){S.view='sched';S.pick=null;loadCust()}}
+        render();
+      }).catch(function(e){S.busy=false;S.err=errMsg(e);render()});
+      return;
+    }
+  }
+  else if(a==='toadmin'){S.view='pin';S.err=''}
+  else if(a==='unlock'){
+    S.pass=String(S.passin||'').trim();S.busy=true;render();
+    call('api_init',S.pass).then(function(r){S.busy=false;applyInit(r);if(!S.locked)S.view='home';render()}).catch(function(e){S.busy=false;S.err=errMsg(e);render()});return;
+  }
+  else if(a==='setpass'){
+    S.busy=true;render();
+    call('api_adminSetPass',S.pin,S.newpass==null?S.ad.passcode:S.newpass).then(function(){S.busy=false;S.newpass=null;return loadAdmin()}).catch(function(e){S.busy=false;S.err=errMsg(e);render()});return;
+  }
+  else if(a==='exit'){S.view='home';S.err='';if(!S.st)loadCust()}
+  else if(a==='login'){
+    S.busy=true;S.err='';render();
+    loadAdmin().catch(function(e){S.err=errMsg(e)}).then(function(){S.busy=false;render()});return;
+  }
+  else if(a==='logout'){S.admin=false;S.ad=null;S.pin='';S.view='home';S.pick=null;try{sessionStorage.removeItem('sb_pin')}catch(e){}loadCust()}
+  else if(a==='atab'){S.atab=v;S.pick=null;S.err='';S.cf=null;S.week=0;loadAdmin().catch(function(e){S.err=errMsg(e);render()})}
+  else if(a==='akind'){S.akind=v;S.pick=null;if(v==='course'&&S.adur>90)S.adur=60}
+  else if(a==='asave'){
+    S.err='';var req={date:S.pick.date,start:S.pick.start,min:S.adur};
+    if(S.akind==='block')req.block=true;else{req.courseId=S.course;req.name=S.aname||'';req.tel=String(S.atel||'').replace(/\D/g,'')}
+    S.busy=true;render();
+    call('api_adminBook',S.pin,req).then(function(r){
+      S.busy=false;if(r.ok){S.pick=null;S.course=null;S.aname='';S.atel='';S.atab='list';return loadAdmin()}S.err=r.msg;render();
+    }).catch(function(e){S.busy=false;S.err=errMsg(e);render()});return;
+  }
+  else if(a==='cancel'){S.cf=v}
+  else if(a==='cancelno'){S.cf=null}
+  else if(a==='cancel2'){S.cf=null;call('api_adminCancel',S.pin,v).then(loadAdmin).catch(function(e){S.err=errMsg(e);render()});return}
+  else if(a==='toggle'){call('api_adminToggleClosed',S.pin,v).then(loadAdmin).catch(function(e){S.err=errMsg(e);render()});return}
+  render();
+});
+
+/* 空き状況を1分ごとに新しくする（ほかの人の予約がすぐ×になるように） */
+setInterval(function(){
+  if(document.hidden)return;
+  if(!S.admin&&S.view==='sched')call('api_init',S.pass).then(function(r){applyInit(r);if(S.view==='sched'||S.locked)render()}).catch(function(){});
+},60000);
+
+/* 起動：URLに ?admin が付いていたら管理画面から開く */
+function start(isAdmin){
+  if(isAdmin){S.view='pin';if(S.pin){render();loadAdmin().catch(function(){S.pin='';S.view='pin';render()});return}render();return}
+  loadCust();
+}
+if(IS_GAS&&google.script.url){google.script.url.getLocation(function(l){start(l&&l.parameter&&('admin' in l.parameter))})}
+else start(/[?&#]admin\b/.test(location.search+location.hash));
+})();
+</script>
+
+</body>
+</html>
