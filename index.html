@@ -4,519 +4,383 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="千葉市緑区土気のもみほぐし・ツボ押し ほぐし処さぼてん。駐車場あり、2名同時OK、毎日11:00〜21:00。">
+<style>:root{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}body{margin:0}</style>
 <title>ほぐし処さぼてん</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Italiana&display=swap">
 <style>
-/* Layout: night-lamp room. Full-bleed real footage, vertical Mincho headlines, content in a narrow column; one orchestrated moment = the "一手、一手" hero written press by press. */
+/* Layout: cinematic photo-led page (hero, parallax bands, gallery) merged with the LP's warm-lamp palette, body-map course picker, marquee, visit flow and store info */
 :root{
-  --ground:#1a1410;      /* towel-brown night */
-  --ground-2:#231b15;
-  --panel:#2c221a;
-  --lamp:#f0b07f;        /* cactus-flower apricot / lamp glow */
-  --petal:#d98aa0;       /* petal-tip pink, used sparingly */
-  --ink:#f3e9df;
-  --ink-2:#c9b9aa;
-  --ink-3:#8e7d6e;
-  --line:rgba(243,233,223,.14);
+  --ground:#1a1410; --ground-2:#231b15; --panel:#2c221a; --lamp:#f0b07f; --petal:#d98aa0;
+  --ink:#f3e9df; --ink-2:#c9b9aa; --ink-3:#8e7d6e; --line:rgba(243,233,223,.14);
   --f-display:"Shippori Mincho B1","Hiragino Mincho ProN","Yu Mincho",serif;
   --f-body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;
   --f-latin:"Italiana","Cormorant Garamond",Georgia,serif;
-  --gut-l:max(16px,env(safe-area-inset-left,0px));
-  --gut-r:max(16px,env(safe-area-inset-right,0px));
   color-scheme:dark;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;background:var(--ground)}
-body{background:var(--ground);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.9;letter-spacing:.04em;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--ground)}
+html{scroll-behavior:smooth}
+body{background:var(--ground);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.9;overflow-x:hidden}
+img{display:block;max-width:100%}
 a{color:inherit}
-img,video{display:block;max-width:100%}
-.wrap{width:100%;max-width:1120px;margin-inline:auto;padding-left:var(--gut-l);padding-right:var(--gut-r)}
-.latin{font-family:var(--f-latin);letter-spacing:.18em;text-transform:uppercase;font-size:.78rem;color:var(--lamp)}
-h2{font-family:var(--f-display);font-weight:700;font-size:clamp(1.7rem,4.2vw,2.8rem);line-height:1.45;margin:.4em 0 .6em;text-wrap:balance;letter-spacing:.08em}
-p{margin:0 0 1.1em;max-width:34em;color:var(--ink-2)}
-:focus-visible{outline:2px solid var(--lamp);outline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--lamp);outline-offset:4px}
+.g{padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.w{max-width:1080px;margin:0 auto}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;text-wrap:balance;margin:0;line-height:1.35}
+p{margin:0}
+.eyebrow{font-family:var(--f-latin);font-size:14px;letter-spacing:.3em;color:var(--lamp);margin-bottom:16px}
+.pill{display:inline-flex;align-items:center;gap:10px;font-family:var(--f-latin);font-size:13px;letter-spacing:.2em;padding:7px 16px;border:1px solid #f3e9df55;border-radius:999px;background:#1a141066;backdrop-filter:blur(6px)}
+.pill i{width:6px;height:6px;border-radius:50%;background:var(--lamp);display:block}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 26px;border-radius:999px;font-weight:700;text-decoration:none;font-size:15px;border:0;font-family:inherit;cursor:pointer;transition:transform .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn.lamp{background:var(--lamp);color:var(--ground)}
+.btn.line{border:1px solid #f3e9df66;color:var(--ink);background:transparent}
+.tnum{font-variant-numeric:tabular-nums}
 
-/* header */
-.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:linear-gradient(var(--ground),rgba(26,20,16,.78));backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.top .wrap{display:flex;align-items:center;gap:20px;padding-block:12px}
-.brand{display:flex;align-items:baseline;gap:10px;text-decoration:none;margin-right:auto;min-width:0}
-.brand small{font-size:.7rem;color:var(--ink-3);letter-spacing:.2em}
-.brand b{font-family:var(--f-display);font-weight:800;font-size:1.15rem;letter-spacing:.12em}
-.nav{display:flex;gap:22px;font-size:.85rem}
-.nav a{text-decoration:none;color:var(--ink-2)}
-.nav a:hover{color:var(--lamp)}
-.telbtn{font-family:var(--f-body);font-weight:700;font-size:.9rem;text-decoration:none;border:1px solid var(--lamp);color:var(--lamp);padding:6px 14px;border-radius:999px;white-space:nowrap;font-variant-numeric:tabular-nums}
-.telbtn:hover{background:var(--lamp);color:var(--ground)}
-@media (max-width:820px){.nav{display:none}}
-.brand b{white-space:nowrap}
-@media (max-width:640px){.brand small{display:none}.brand b{font-size:1rem}h2{font-size:1.55rem}.foot blockquote{font-size:1.35rem}}
+/* nav */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--ground)}
+nav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:9;display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:14px;transition:background .3s}
+nav.solid{background:#1a1410e0;backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .logo{font-family:var(--f-display);font-weight:800;letter-spacing:.1em;text-decoration:none;font-size:17px}
+nav .links{display:flex;gap:22px;font-size:13px;color:var(--ink-2)}
+nav .links a{text-decoration:none}
+nav .tel{padding:8px 16px;font-size:13px;border:1px solid var(--lamp);color:var(--lamp);border-radius:999px;text-decoration:none;font-weight:700}
+@media (max-width:760px){nav .links{display:none}}
 
 /* hero */
-.hero{position:relative;min-height:min(92vh,860px);display:grid;overflow:hidden;isolation:isolate}
-.hero video,.hero .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transform:scale(calc(1.06 + var(--p,0)*.08));transform-origin:50% 60%}
-.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(120% 80% at 70% 40%,rgba(26,20,16,.05),rgba(26,20,16,.7) 70%),linear-gradient(90deg,rgba(26,20,16,.85),rgba(26,20,16,.15) 55%,rgba(26,20,16,.55))}
-.hero .wrap{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:clamp(24px,6vw,80px);padding-block:clamp(48px,9vw,110px)}
-.tate{writing-mode:vertical-rl;font-family:var(--f-display);font-weight:800;font-size:clamp(3.2rem,9vw,6.6rem);line-height:1.15;letter-spacing:.14em;margin:0;color:var(--ink);text-shadow:0 2px 30px rgba(0,0,0,.45)}
-.tate .ch{display:inline-block;animation:press .9s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i)*.32s + .2s)}
-.tate .dot{color:var(--lamp)}
-@keyframes press{0%{opacity:.18;transform:scale(1.08);filter:blur(3px)}55%{transform:scale(.97)}100%{opacity:1;transform:none;filter:none}}
-.hero-copy{max-width:30em;min-width:0}
-.hero-copy .lead{font-family:var(--f-display);font-size:clamp(1.25rem,2.6vw,1.75rem);font-weight:700;color:var(--ink);line-height:1.7;margin-bottom:.8em;letter-spacing:.1em}
-.hero-copy p{color:var(--ink-2)}
-.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
-.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 24px;border-radius:999px;font-weight:700;text-decoration:none;font-size:1rem;font-variant-numeric:tabular-nums;transition:transform .25s,background .25s}
-.btn.solid{background:var(--lamp);color:var(--ground)}
-.btn.ghost{border:1px solid var(--line);color:var(--ink)}
-.btn:hover{transform:translateY(-2px)}
-.facts{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:28px;font-size:.85rem;color:var(--ink-2)}
-.facts span::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--lamp);margin-right:8px;vertical-align:middle}
-@media (max-width:640px){.hero .wrap{grid-template-columns:1fr}.tate{font-size:2.6rem;height:auto;writing-mode:horizontal-tb;letter-spacing:.08em;white-space:nowrap}}
+.hero{position:relative;min-height:min(92svh,860px);display:flex;align-items:flex-end;overflow:hidden}
+.hero .bg{position:absolute;inset:0}
+.hero .bg img{width:100%;height:100%;object-fit:cover;transform:scale(1.12);animation:kb 14s ease-out forwards}
+@keyframes kb{to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#1a141099 0%,#1a141022 35%,#1a1410d0 80%,var(--ground) 100%)}
+.hero .in{position:relative;z-index:1;padding-block:120px 56px;width:100%}
+.hero h1{font-size:clamp(44px,9.5vw,104px);font-weight:800;letter-spacing:-.01em;margin-top:22px;line-height:1.2}
+.hero h1 span{display:block;animation:up 1.1s cubic-bezier(.2,.7,.2,1) both}
+.hero h1 span:nth-child(2){animation-delay:.18s}
+.hero h1 em{font-style:normal;color:var(--lamp)}
+.hero .lead{margin-top:22px;max-width:30em;color:#eadfd2;font-size:17px;animation:up 1s .4s both}
+.hero .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px;animation:up 1s .55s both}
+.hero .pill{animation:up .9s both}
+@keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 
-/* sections */
-section{padding-block:clamp(72px,11vw,140px)}
-.split{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,6vw,90px);align-items:center}
-.split>*{min-width:0}
-@media (max-width:820px){.split{grid-template-columns:1fr}}
-.frame{position:relative;border-radius:4px;overflow:hidden;aspect-ratio:3/4;max-width:100%;background:var(--panel);clip-path:inset(var(--clip,0%) round 4px);transition:clip-path 1.2s cubic-bezier(.2,.7,.2,1)}
-.frame video,.frame img{width:100%;height:100%;object-fit:cover}
-.frame figcaption{position:absolute;left:14px;bottom:12px;font-size:.75rem;color:var(--ink);background:rgba(26,20,16,.6);padding:3px 10px;border-radius:999px;letter-spacing:.12em}
-.frame{transform:translateY(var(--ty,0)) scale(var(--sc,1));transition:clip-path 1.3s cubic-bezier(.2,.7,.2,1),transform 1.3s cubic-bezier(.2,.7,.2,1)}
-.js .frame:not(.in){--clip:22% 10% 22% 10%;--ty:60px;--sc:.94}
-.reel .frame:nth-child(2){transition-delay:.12s}.reel .frame:nth-child(3){transition-delay:.24s}.reel .frame:nth-child(4){transition-delay:.36s}
-.rise{transition:transform 1s cubic-bezier(.2,.7,.2,1),opacity 1s}
-.js .rise:not(.in){transform:translateY(36px);opacity:.25}
+/* facts strip */
+.strip{border-block:1px solid var(--line);background:var(--ground-2)}
+.strip .w{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.strip div{padding:20px 8px;text-align:center;font-size:14px;color:var(--ink-2)}
+.strip b{display:block;font-family:var(--f-display);font-size:19px;color:var(--ink)}
+@media (max-width:640px){.strip .w{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
-.vow{border-left:1px solid var(--lamp);padding-left:18px;margin:26px 0 0;font-family:var(--f-display);font-size:1.15rem;line-height:1.9;color:var(--ink);max-width:28em}
+/* philosophy */
+.vision{padding-block:120px;text-align:center}
+.vision h2{font-size:clamp(30px,6vw,56px);font-weight:500}
+.vision .body{max-width:34em;margin:32px auto 0;color:var(--ink-2);display:grid;gap:18px}
+.vision .sign{margin-top:30px;font-family:var(--f-display);font-size:20px;color:var(--ink)}
 
-/* hands reel */
-.hands{background:var(--ground-2)}
-.reel{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:40px}
-.reel .frame{aspect-ratio:9/16}
-.reel .frame:nth-child(even){margin-top:48px}
-@media (max-width:820px){.reel{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:62%;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px}.reel .frame{scroll-snap-align:start}.reel .frame:nth-child(even){margin-top:0}}
-.reel-note{font-size:.8rem;color:var(--ink-3);margin-top:16px}
+/* bands */
+.band{position:relative;min-height:min(78svh,700px);display:flex;align-items:flex-end;overflow:hidden;margin-block:14px}
+.band .ph{position:absolute;inset:-12% 0;will-change:transform}
+.band .ph img{width:100%;height:100%;object-fit:cover}
+.band::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#1a1410f0 0%,#1a141033 55%,#1a141011 100%)}
+.band .in{position:relative;z-index:1;padding-block:56px;width:100%}
+.band .num{font-family:var(--f-latin);color:var(--lamp);font-size:16px;letter-spacing:.2em}
+.band h3{font-size:clamp(30px,6vw,54px);margin-top:8px}
+.band p{max-width:28em;margin-top:14px;color:#e6dbcf}
+.band.r .w{text-align:right}.band.r p{margin-left:auto}
 
-/* foot */
-.foot{position:relative;min-height:70vh;display:grid;align-items:end;overflow:hidden;isolation:isolate}
-.foot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%;z-index:-2;transform:translateY(calc(var(--p,0)*-40px)) scale(1.1)}
-.foot::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(transparent 30%,rgba(26,20,16,.92))}
-.foot .wrap{padding-block:56px}
-.foot blockquote{margin:0;font-family:var(--f-display);font-weight:700;font-size:clamp(1.5rem,4vw,2.6rem);line-height:1.6;letter-spacing:.1em;max-width:18em;text-wrap:balance}
-.foot cite{display:block;font-style:normal;font-size:.85rem;color:var(--ink-2);margin-top:14px;letter-spacing:.1em}
+/* course picker */
+.courses{padding-block:120px}
+.courses h2{font-size:clamp(30px,6vw,52px)}
+.courses .sub{color:var(--ink-2);margin-top:12px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:36px}
+.tab{font:inherit;font-weight:700;font-size:15px;padding:11px 20px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink-2);cursor:pointer;transition:all .25s}
+.tab[aria-selected="true"]{background:var(--lamp);color:var(--ground);border-color:var(--lamp)}
+.picker{margin-top:24px;display:grid;grid-template-columns:240px 1fr;gap:40px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:36px}
+.picker svg{width:100%;max-width:220px;height:auto;margin:0 auto}
+.fig{fill:#3a2e24;stroke:#5a4a3c;stroke-width:1.2}
+.pt{fill:var(--lamp);opacity:0;transition:opacity .4s}
+.pt.on{opacity:.9;animation:pulse 1.8s ease-in-out infinite}
+.pt.on+.halo{opacity:.25}
+@keyframes pulse{0%,100%{opacity:.9}50%{opacity:.45}}
+.det{min-width:0}
+.det .en{font-family:var(--f-latin);letter-spacing:.25em;color:var(--ink-3);font-size:14px}
+.det h3{font-size:clamp(28px,5vw,40px);margin-top:4px}
+.det .area{color:var(--lamp);font-weight:700;margin-top:6px}
+.det .desc{color:var(--ink-2);margin-top:14px}
+.det .pr{display:flex;gap:32px;margin-top:20px;flex-wrap:wrap}
+.det .pr span{display:block;color:var(--ink-3);font-size:13px}
+.det .pr b{font-family:var(--f-display);font-size:30px;font-weight:700}
+.det .pr b small{font-size:15px;margin-left:2px}
+.det .memo{margin-top:10px;font-size:13px;color:var(--ink-3)}
+.det .btn{margin-top:24px}
+.note{margin-top:18px;font-size:13px;color:var(--ink-3)}
+@media (max-width:720px){.picker{grid-template-columns:1fr;padding:28px 22px;gap:24px}.picker svg{max-width:160px}}
 
-/* room */
-.room-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.room-grid .frame{aspect-ratio:9/14}
-.room-grid .frame:last-child{margin-top:64px}
-.points{display:grid;gap:18px;margin-top:28px}
-.points div{display:grid;grid-template-columns:5.5em 1fr;gap:14px;border-top:1px solid var(--line);padding-top:14px}
-.points dt{font-family:var(--f-display);font-weight:700;color:var(--lamp)}
-.points dd{margin:0;color:var(--ink-2)}
+/* marquee */
+.marquee{overflow:hidden;border-block:1px solid var(--line);padding-block:18px;white-space:nowrap}
+.marquee div{display:inline-block;animation:mq 30s linear infinite;font-family:var(--f-display);font-size:clamp(22px,4vw,34px);color:var(--ink-3)}
+.marquee span{margin-right:48px}.marquee .l{font-family:var(--f-latin);letter-spacing:.2em;color:var(--lamp)}
+@keyframes mq{to{transform:translateX(-50%)}}
 
-/* menu */
-.menu{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:40px}
-@media (max-width:820px){.menu{grid-template-columns:1fr}}
-.course{background:var(--ground);padding:30px 26px;display:flex;flex-direction:column;gap:12px;transition:background .3s}
-.course:hover{background:var(--panel)}
-.course h3{margin:0;font-family:var(--f-display);font-size:1.4rem;letter-spacing:.1em}
-.course p{font-size:.92rem;margin:0}
-.course .latin{font-size:.7rem}
-.price{margin:auto 0 0;padding-top:14px;display:grid;gap:6px}
-.price div{display:flex;justify-content:space-between;align-items:baseline;border-top:1px dashed var(--line);padding-top:8px;font-variant-numeric:tabular-nums}
-.price dt{color:var(--ink-2);font-size:.9rem}
-.price dd{margin:0;font-family:var(--f-display);font-size:1.35rem;font-weight:700}
-.price dd small{font-size:.75rem;color:var(--ink-3);font-family:var(--f-body);font-weight:400;margin-left:2px}
-.price .note{font-size:.75rem;color:var(--ink-3)}
-.menu-foot{display:flex;flex-wrap:wrap;gap:8px 26px;margin-top:20px;font-size:.85rem;color:var(--ink-3)}
+/* gallery */
+.gallery{padding-block:110px}
+.gallery h2{font-size:clamp(30px,6vw,52px);margin-bottom:36px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:220px;gap:10px}
+.grid figure{margin:0;overflow:hidden;border-radius:14px}
+.grid img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
+.grid figure:hover img{transform:scale(1.06)}
+.grid .tall{grid-row:span 2}.grid .wide{grid-column:span 2}
+@media (max-width:640px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:160px}}
 
 /* flow */
-.flow{list-style:none;margin:40px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:18px;counter-reset:f}
-@media (max-width:820px){.flow{grid-template-columns:1fr}}
-.flow li{counter-increment:f;border-top:1px solid var(--lamp);padding-top:16px;min-width:0}
-.flow li::before{content:counter(f,cjk-ideographic);font-family:var(--f-display);color:var(--lamp);font-size:1.1rem;display:block;margin-bottom:6px}
-.flow b{font-family:var(--f-display);font-size:1.1rem;display:block;margin-bottom:6px}
-.flow span{font-size:.88rem;color:var(--ink-2);line-height:1.8}
+.flow{padding-block:100px;background:var(--ground-2)}
+.flow h2{font-size:clamp(28px,5vw,44px)}
+.steps{list-style:none;padding:0;margin:40px 0 0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;counter-reset:s}
+.steps li{counter-increment:s;border-top:1px solid var(--lamp);padding-top:16px;min-width:0}
+.steps li::before{content:counter(s,decimal-leading-zero);font-family:var(--f-latin);color:var(--lamp);font-size:20px;display:block}
+.steps b{font-family:var(--f-display);font-size:19px;display:block;margin-top:4px}
+.steps p{color:var(--ink-2);font-size:14px;margin-top:6px}
+@media (max-width:820px){.steps{grid-template-columns:1fr}}
 
-/* access */
-.info{display:grid;gap:0;margin:0}
-.info div{display:grid;grid-template-columns:6em 1fr;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
-.info dt{color:var(--ink-3);font-size:.88rem}
-.info dd{margin:0;min-width:0;font-variant-numeric:tabular-nums}
-.copy{margin-left:10px;font:inherit;font-size:.75rem;background:none;border:1px solid var(--line);color:var(--ink-2);border-radius:999px;padding:2px 10px;cursor:pointer}
-.copy:hover{border-color:var(--lamp);color:var(--lamp)}
+/* info */
+.info{padding-block:110px}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:56px}
+.two>div{min-width:0}
+.info h2{font-size:clamp(26px,5vw,40px);margin-bottom:26px}
+.facts{display:grid;gap:16px;margin:0}
+.facts div{display:grid;grid-template-columns:84px 1fr;gap:12px;border-bottom:1px solid var(--line);padding-bottom:14px}
+.facts dt{font-size:13px;color:var(--lamp);padding-top:3px}
+.facts dd{margin:0}
+.facts small{display:block;color:var(--ink-3)}
+.copy{margin-left:10px;font:inherit;font-size:12px;padding:3px 10px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink-2);cursor:pointer}
+.rules{list-style:none;padding:0;margin:0;display:grid;gap:14px;color:var(--ink-2);font-size:15px}
+.rules li{padding-left:20px;position:relative}
+.rules li::before{content:"";position:absolute;left:0;top:.85em;width:8px;height:1px;background:var(--lamp)}
+.info .btn{margin-top:26px}
+@media (max-width:760px){.two{grid-template-columns:1fr;gap:64px}}
 
 /* closing */
-.close{position:relative;overflow:hidden;isolation:isolate;text-align:left}
-.close .split{align-items:end}
-.close h2{font-size:clamp(2rem,5vw,3.4rem)}
-.close .frame{aspect-ratio:4/5}
+.close{position:relative;padding-block:140px;text-align:center;overflow:hidden}
+.close .bg{position:absolute;inset:0}
+.close .bg img{width:100%;height:100%;object-fit:cover}
+.close::after{content:"";position:absolute;inset:0;background:#1a1410c8}
+.close .in{position:relative;z-index:1}
+.close h2{font-size:clamp(32px,7vw,62px);font-weight:500}
+.close p{margin:20px auto 0;color:#e6dbcf;max-width:26em}
+.close .cta{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:36px}
+footer{padding-block:32px 44px;font-size:12px;color:var(--ink-3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;border-top:1px solid var(--line)}
 
-footer{border-top:1px solid var(--line);padding-block:28px;font-size:.8rem;color:var(--ink-3)}
-footer .wrap{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between}
-
-/* mobile call bar */
-.callbar{display:none}
-@media (max-width:640px){
-  .callbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:55;gap:10px;padding:10px var(--gut-r) calc(10px + env(safe-area-inset-bottom,0px)) var(--gut-l);background:rgba(26,20,16,.92);backdrop-filter:blur(8px);border-top:1px solid var(--line)}
-  .callbar a{flex:1;justify-content:center;padding:12px}
-  footer{padding-bottom:96px}
-}
-@media (prefers-reduced-motion:reduce){
-  .tate .ch{animation:none}
-  .frame{transition:none}.js .frame:not(.in){--clip:0%}
-  .hero video,.foot img{transform:none}
-  html{scroll-behavior:auto}
-}
-
-/* rack */
-.rack{position:relative;overflow:hidden;padding-bottom:48px!important;background:radial-gradient(90% 60% at 50% 0%,#3a2a1e,var(--ground) 70%)}
-.rack-head{display:grid;grid-template-columns:auto 1fr;align-items:start;gap:clamp(20px,5vw,64px);padding-block:40px 10px}
-.rack .tate{writing-mode:horizontal-tb;white-space:nowrap;font-size:clamp(2.4rem,5vw,4rem);letter-spacing:.1em}
-.rack-head{align-items:end}
-.hint{font-size:.85rem;color:var(--lamp)!important}
-.rail{position:relative;margin-top:10px;padding-left:var(--gut-l);padding-right:var(--gut-r)}
-.bar{height:6px;border-radius:3px;background:linear-gradient(#cfc2b4,#6e6157);max-width:1080px;margin:0 auto;box-shadow:0 6px 18px rgba(0,0,0,.5)}
-.hangers{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:clamp(8px,2vw,26px);max-width:1000px;margin:0 auto;padding-inline:clamp(4px,2vw,30px)}
-.hang{all:unset;cursor:pointer;display:flex;flex-direction:column;align-items:center;transform-origin:50% 0;transform:rotate(var(--r,0deg));will-change:transform;-webkit-tap-highlight-color:transparent}
-.hang:focus-visible .cloth{outline:2px solid var(--lamp);outline-offset:4px}
-.hook{width:16px;height:22px;border:3px solid #b9ab9c;border-bottom:none;border-radius:10px 10px 0 0;margin-top:-6px}
-.cloth{position:relative;width:100%;height:clamp(300px,52vh,520px);border-radius:3px 3px 10px 10px;overflow:hidden;background:var(--panel);box-shadow:0 24px 40px rgba(0,0,0,.55);transform-origin:50% 0;transform:skewX(var(--sk,0deg))}
-.cloth video,.cloth img{width:100%;height:100%;object-fit:cover;filter:saturate(.9) brightness(.85);transition:filter .4s,transform .6s}
-.hang:hover .cloth video,.hang:hover .cloth img{filter:none;transform:scale(1.06)}
-.tag{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);font-family:var(--f-display);font-weight:800;font-size:clamp(1rem,2.2vw,1.5rem);writing-mode:vertical-rl;letter-spacing:.2em;color:var(--ink);text-shadow:0 2px 12px rgba(0,0,0,.7)}
-.rack .facts{align-items:center;justify-content:center;margin-top:36px}
-.rack .facts .btn::before{display:none}
-.rack .facts .btn{padding:10px 20px}
-@media (max-width:640px){.rack-head{grid-template-columns:1fr}.hangers{gap:6px;padding-inline:0}.cloth{height:44vh}.tag{font-size:.95rem;bottom:8px}}
-.ov{position:fixed;inset:0;z-index:80;background:var(--ground);clip-path:inset(var(--ct,0) var(--cr,0) var(--cb,0) var(--cl,0) round 8px);transition:clip-path .75s cubic-bezier(.7,0,.2,1)}
-.ov video,.ov img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.ov::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 35%,rgba(26,20,16,.92))}
-.ov-body{position:absolute;left:0;right:0;bottom:0;z-index:1;padding:0 var(--gut-r) calc(40px + env(safe-area-inset-bottom,0px)) var(--gut-l);max-width:760px;opacity:0;transform:translateY(20px);transition:opacity .5s .45s,transform .5s .45s}
-.ov.open .ov-body{opacity:1;transform:none}
-.ov-body h2{font-size:clamp(2.2rem,7vw,4.4rem);margin:0 0 .3em}
-.ov-body p{color:var(--ink);font-size:1.02rem}
-.ov-close{position:absolute;z-index:2;top:calc(14px + env(safe-area-inset-top,0px));right:max(14px,env(safe-area-inset-right,0px));font:inherit;font-weight:700;background:rgba(26,20,16,.7);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:8px 18px;cursor:pointer}
-@media (prefers-reduced-motion:reduce){.ov,.ov-body{transition:none}}
-
-/* slide rack */
-.rail .bar{max-width:none}
-.hangers{display:flex!important;gap:clamp(14px,3vw,34px)!important;max-width:none!important;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:0 calc(50% - var(--hw)/2) 30px!important;--hw:clamp(170px,24vw,260px)}
-.hangers::-webkit-scrollbar{display:none}
-.hang{flex:0 0 var(--hw);scroll-snap-align:center}
-.hang .cloth{height:clamp(340px,56vh,560px);transition:opacity .4s,filter .4s}
-.hang:not(.on) .cloth{opacity:.55;filter:grayscale(.4)}
-.hang.on .tag{color:var(--lamp)}
-.slide-nav{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:6px}
-.slide-nav button{font:inherit;font-size:1.2rem;width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:none;color:var(--ink);cursor:pointer}
-.slide-nav button:hover{border-color:var(--lamp);color:var(--lamp)}
-.slide-count{font-family:var(--f-display);font-variant-numeric:tabular-nums;color:var(--ink-2);min-width:4.5em;text-align:center}
-@media (max-width:640px){.hangers{--hw:58vw}.hang .cloth{height:52vh}.tag{font-size:1.2rem!important}}
-
-/* panels (replaces rack look) */
-.bar,.hook,.slide-nav{display:none!important}
-.hangers{display:flex!important;overflow:visible!important;gap:8px!important;padding:0!important;max-width:1120px!important;margin:0 auto!important;height:clamp(380px,62vh,620px)}
-.hang{flex:1 1 0!important;min-width:0;transform:none!important;transition:flex-grow .7s cubic-bezier(.2,.8,.2,1)}
-.hang.on{flex-grow:4!important}
-.hang .cloth{height:100%!important;transform:none!important;border-radius:6px!important;opacity:1!important;filter:none!important}
-.hang .cloth video,.hang .cloth img{transform:translateX(var(--px,0)) scale(1.12)!important;transition:transform .6s ease-out,filter .5s!important;filter:brightness(.55) saturate(.8)!important}
-.hang.on .cloth video,.hang.on .cloth img{filter:none!important}
-.hang .tag{writing-mode:vertical-rl;transition:all .5s}
-.hang.on .tag{writing-mode:horizontal-tb;left:22px;transform:none;bottom:20px;font-size:clamp(1.6rem,3vw,2.4rem)!important;color:var(--ink)!important}
-.hang .more{position:absolute;left:22px;bottom:-30px;font-size:.8rem;color:var(--lamp);opacity:0;transition:opacity .4s,bottom .4s}
-.hang.on .more{opacity:1;bottom:6px}
-@media (max-width:640px){.hangers{gap:5px!important;height:58vh}.hang.on{flex-grow:5!important}.hang.on .tag{left:14px;font-size:1.5rem!important}.hang .more{left:14px}}
-
-/* course panels */
-.hang{cursor:default}
-.hang .cinfo{position:absolute;inset:0;display:grid;grid-template-columns:minmax(110px,170px) 1fr;gap:clamp(14px,3vw,34px);align-items:center;padding:clamp(18px,3vw,40px);background:linear-gradient(90deg,rgba(26,20,16,.88),rgba(26,20,16,.55));opacity:0;transform:translateX(30px);transition:opacity .5s .15s,transform .6s .15s;pointer-events:none}
-.hang.on .cinfo{opacity:1;transform:none;pointer-events:auto}
-.hang.on .tag{opacity:0}
-.ctext{display:flex;flex-direction:column;gap:10px;min-width:0;font-size:.92rem;line-height:1.8;color:var(--ink-2)}
-.cname{font-family:var(--f-display);font-size:clamp(1.5rem,2.6vw,2.2rem);color:var(--ink);letter-spacing:.1em}
-.clab{font-weight:700;color:var(--lamp);font-size:.95rem}
-.cprice{display:flex;gap:22px;margin:4px 0 0}
-.cprice div{display:flex;gap:8px;align-items:baseline}.cprice dt{color:var(--ink-3);font-size:.85rem}.cprice dd{margin:0;font-family:var(--f-display);font-size:1.3rem;color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums}
-.cnote{margin:0;font-size:.78rem;color:var(--ink-3)}
-.cprice div,.ctext .btn{white-space:nowrap}
-@media (max-width:820px){.hang .cinfo{grid-template-columns:78px minmax(0,1fr)!important;gap:14px!important}.cprice{gap:14px;flex-wrap:wrap}}
-.ctext .btn{align-self:flex-start;margin-top:6px;padding:12px 22px}
-.bmap{width:100%;height:auto;max-height:100%}
-.bmap .sil{fill:rgba(243,233,223,.13);stroke:rgba(243,233,223,.35);stroke-width:1.2}
-.bmap .z{fill:var(--lamp);opacity:0;transform-box:fill-box;transform-origin:center}
-.hang.on .bmap .z.act{opacity:1;animation:tp 1.6s ease-in-out infinite}
-.hang.on .bmap .z.act:nth-of-type(2){animation-delay:.2s}.hang.on .bmap .z.act:nth-of-type(3){animation-delay:.4s}.hang.on .bmap .z.act:nth-of-type(4){animation-delay:.6s}.hang.on .bmap .z.act:nth-of-type(5){animation-delay:.8s}.hang.on .bmap .z.act:nth-of-type(6){animation-delay:1s}
-@keyframes tp{0%,100%{transform:scale(.8);opacity:.75}50%{transform:scale(1.35);opacity:1}}
-.hang.soft .bmap .sil{fill:rgba(240,176,127,.25);animation:soft 2.4s ease-in-out infinite}
-@keyframes soft{50%{fill:rgba(240,176,127,.45)}}
-.hang.on{flex-grow:6!important}
-@media (max-width:820px){.hangers{flex-direction:column;height:auto!important;gap:8px!important}.hang{flex:none!important;height:84px;transition:height .7s cubic-bezier(.2,.8,.2,1)}.hang.on{height:auto;min-height:560px}.hang .tag{writing-mode:horizontal-tb;left:18px;transform:none;bottom:auto;top:50%;margin-top:-.7em;font-size:1.3rem!important}
- .hang .cinfo{position:relative;grid-template-columns:110px 1fr;align-items:start;padding:22px 16px;min-height:560px;transform:translateY(20px)}.hang .cloth{min-height:84px}.hang.on .cloth video{position:absolute;inset:0}.ctext .btn{align-self:stretch;justify-content:center}}
-@media (prefers-reduced-motion:reduce){.hang.on .bmap .z.act,.hang.soft .bmap .sil{animation:none}}
-
-/* stronger motion below */
-.mq{overflow:hidden;border-block:1px solid var(--line);padding-block:18px;white-space:nowrap}
-.mq div{display:inline-block;font-family:var(--f-display);font-weight:800;font-size:clamp(2.4rem,7vw,5.5rem);letter-spacing:.12em;color:transparent;-webkit-text-stroke:1px rgba(240,176,127,.55);transform:translateX(var(--mx,0))}
-.js h2 .c{display:inline-block;transform:translateY(.7em) rotate(6deg);opacity:.3;transition:transform .8s cubic-bezier(.2,.8,.2,1),opacity .8s;transition-delay:calc(var(--d)*35ms)}
-.js h2.in .c{transform:none;opacity:1}
-.js .rise.in h2{transform:none}
-.frame video,.frame img{transform:translateY(var(--py,0)) scale(1.18)}
-.course{transform:perspective(800px) rotateX(var(--rx,0)) rotateY(var(--ry,0));transition:transform .3s,background .3s}
-.js .menu:not(.in) .course{transform:translateY(80px);opacity:.3}
-.menu .course{transition:transform .9s cubic-bezier(.2,.8,.2,1),opacity .9s,background .3s}.menu .course:nth-child(2){transition-delay:.12s}.menu .course:nth-child(3){transition-delay:.24s}
-.flow{position:relative}
-.flow::before{content:"";position:absolute;left:0;top:0;height:2px;width:calc(var(--fp,0)*100%);background:var(--lamp);box-shadow:0 0 12px var(--lamp)}
-.js .flow li{opacity:.3;transform:translateY(30px);transition:opacity .6s,transform .6s}
-.js .flow li.lit{opacity:1;transform:none}
-.js .info div{opacity:.3;transform:translateX(-30px);transition:opacity .6s,transform .6s;transition-delay:calc(var(--d,0)*70ms)}
-.js .info.in div{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){.js h2 .c,.js .flow li,.js .info div,.js .menu:not(.in) .course{transform:none;opacity:1}.mq div{transform:none}}
-.rack{isolation:isolate;background:var(--ground)!important}
-.rack-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;opacity:.5;animation:kb 24s ease-in-out infinite alternate}
-.rack::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(rgba(26,20,16,.35),rgba(26,20,16,.75) 60%,var(--ground))}
-@keyframes kb{to{transform:scale(1.12) translate(-2%,-2%)}}
-@media (prefers-reduced-motion:reduce){.rack-bg{animation:none}}
-.rack .tate{white-space:normal!important;font-size:clamp(1.9rem,4.4vw,3.4rem)!important;line-height:1.45}
-.rack .tate .ch{animation-delay:calc(var(--i)*.09s + .2s)}
+.rv{transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.rv.pre{opacity:0;transform:translateY(30px)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}.rv,.rv.pre{opacity:1;transform:none;transition:none}.band .ph{transform:none!important}}
 </style>
-<style>:root{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}body{margin:0}</style>
 </head>
 <body>
 
+<nav class="g" id="nav">
+  <a class="logo" href="#top">ほぐし処さぼてん</a>
+  <div class="links"><a href="#philosophy">想い</a><a href="#courses">メニュー</a><a href="#flow">流れ</a><a href="#access">アクセス</a></div>
+  <a class="tel tnum" href="tel:0434973109">043-497-3109</a>
+</nav>
 
-<header class="top">
-  <div class="wrap">
-    <a class="brand" href="#top"><small>土気</small><b>ほぐし処さぼてん</b></a>
-    <nav class="nav" aria-label="ページ内">
-      <a href="#omoi">想い</a><a href="#room">空間</a><a href="#menu">メニュー</a><a href="#access">アクセス</a>
-    </nav>
-    <a class="telbtn" href="tel:0434973109">043-497-3109</a>
-  </div>
+<header class="hero" id="top">
+  <div class="bg"><img src="img/hero.jpg" alt="ほぐし処さぼてんの施術室"></div>
+  <div class="in g"><div class="w">
+    <span class="pill"><i></i>TSUBO-OSHI &amp; THAI MASSAGE · TOKE, CHIBA</span>
+    <h1><span>ほぐしたい場所を、</span><span><em>ほぐしたいだけ。</em></span></h1>
+    <p class="lead">ツボ押しが中心のほぐし処です。その日いちばんつらい場所をうかがって、時間の多くをそこへ使います。</p>
+    <div class="cta">
+      <a class="btn lamp tnum" href="tel:0434973109">電話で予約 043-497-3109</a>
+      <a class="btn line" href="#courses">コースを見る</a>
+    </div>
+  </div></div>
 </header>
 
-<main id="top">
-  <section class="rack" aria-label="コース" style="padding:0">
-    <img class="rack-bg" src="media/v2/sabotenhogushi-new/media/v2/cover.jpg" alt="" aria-hidden="true">
-    <div class="wrap rack-head">
-      <h1 class="tate" aria-label="ほぐしたい場所を、ほぐしたいだけ。"><span class="ch" style="--i:0">ほ</span><span class="ch" style="--i:1">ぐ</span><span class="ch" style="--i:2">し</span><span class="ch" style="--i:3">た</span><span class="ch" style="--i:4">い</span><span class="ch" style="--i:5">場</span><span class="ch" style="--i:6">所</span><span class="ch" style="--i:7">を</span><span class="ch dot" style="--i:8">、</span><br><span class="ch" style="--i:9">ほ</span><span class="ch" style="--i:10">ぐ</span><span class="ch" style="--i:11">し</span><span class="ch" style="--i:12">た</span><span class="ch" style="--i:13">い</span><span class="ch" style="--i:14">だ</span><span class="ch" style="--i:15">け</span><span class="ch dot" style="--i:16">。</span></h1>
-      <div class="hero-copy">
-        <div class="latin">Tsubo-oshi &amp; Thai massage · Toke, Chiba</div>
-        <p class="hint">コースに触れると、押すツボの範囲が出てきます。</p>
+<div class="strip g"><div class="w">
+  <div><b class="tnum">11:00–21:00</b>毎日営業</div>
+  <div><b>3〜4台</b>専用駐車場</div>
+  <div><b>2名同時OK</b>ほぼ貸し切り</div>
+  <div><b>現金・カード</b>お支払い</div>
+</div></div>
+
+<section class="vision g" id="philosophy">
+  <div class="w rv">
+    <p class="eyebrow">OUR PHILOSOPHY</p>
+    <h2>終わったあとに、<br>「わあ、すっきりした」を。</h2>
+    <div class="body">
+      <p>さぼてんの施術はツボ押しが中心です。決まった手順をなぞるのではなく、その日いちばんつらい場所をうかがって、時間の多くをそこへ使います。</p>
+      <p>施術中、こちらから話しかけることは基本的にありません。お話ししたいときは、いつでも声をかけてください。黙ってからだを預けたい日も、そのまま眠ってしまっても大丈夫です。</p>
+    </div>
+    <p class="sign">一回一回、全力で向き合う。</p>
+  </div>
+</section>
+
+<section class="band">
+  <div class="ph"><img src="img/beds.jpg" alt="ベッドが2台並ぶ施術室" loading="lazy"></div>
+  <div class="in g"><div class="w rv">
+    <p class="num">THE ROOM</p>
+    <h3>おふたりでも、<br>おひとりでも、静かに。</h3>
+    <p>ベッドは2台。おふたりで予約すれば、ほとんどプライベートな空間で、誰にも邪魔されずに過ごせます。</p>
+  </div></div>
+</section>
+
+<section class="band r">
+  <div class="ph"><img src="img/monstera.jpg" alt="観葉植物の灯りがともる室内" loading="lazy"></div>
+  <div class="in g"><div class="w rv">
+    <p class="num">QUIET TIME</p>
+    <h3>こちらからは、<br>話しかけません。</h3>
+    <p>おひとりの日も、ゆっくり静かに。話しかけてもらえたら、ちゃんとお話しします。</p>
+  </div></div>
+</section>
+
+<section class="courses g" id="courses">
+  <div class="w">
+    <div class="rv"><p class="eyebrow">MENU &amp; PRICE</p><h2>コースと料金</h2><p class="sub">コースを選ぶと、押すツボの範囲が光ります。すべて税込。</p></div>
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" id="t-relax" data-c="relax" aria-selected="false">リラックス</button>
+      <button class="tab" role="tab" id="t-mix" data-c="mix" aria-selected="true">ミックス</button>
+      <button class="tab" role="tab" id="t-mnt" data-c="mnt" aria-selected="false">メンテナンス</button>
+    </div>
+    <div class="picker rv">
+      <svg viewBox="0 0 200 400" role="img" aria-label="背面から見た体と、ツボ押しの範囲">
+        <circle class="fig" cx="100" cy="42" r="26"/>
+        <rect class="fig" x="88" y="66" width="24" height="18" rx="6"/>
+        <path class="fig" d="M52 92 Q100 78 148 92 L156 200 Q100 214 44 200 Z"/>
+        <path class="fig" d="M52 94 L28 196 L40 200 L62 120 Z"/>
+        <path class="fig" d="M148 94 L172 196 L160 200 L138 120 Z"/>
+        <path class="fig" d="M46 202 Q100 216 154 202 L150 240 Q100 252 50 240 Z"/>
+        <path class="fig" d="M52 242 L60 380 L90 380 L98 252 Z"/>
+        <path class="fig" d="M148 242 L140 380 L110 380 L102 252 Z"/>
+        <circle class="pt" data-a="neck" cx="100" cy="76" r="9"/>
+        <circle class="pt" data-a="shoulder" cx="72" cy="100" r="10"/>
+        <circle class="pt" data-a="shoulder" cx="128" cy="100" r="10"/>
+        <circle class="pt" data-a="waist" cx="84" cy="184" r="10"/>
+        <circle class="pt" data-a="waist" cx="116" cy="184" r="10"/>
+        <circle class="pt" data-a="arm" cx="40" cy="150" r="8"/>
+        <circle class="pt" data-a="arm" cx="160" cy="150" r="8"/>
+        <circle class="pt" data-a="pelvis" cx="100" cy="226" r="11"/>
+        <circle class="pt" data-a="leg" cx="76" cy="310" r="9"/>
+        <circle class="pt" data-a="leg" cx="124" cy="310" r="9"/>
+      </svg>
+      <div class="det" aria-live="polite">
+        <p class="en" id="c-en">MIX COURSE</p>
+        <h3 id="c-name">ミックスコース</h3>
+        <p class="area" id="c-area"></p>
+        <p class="desc" id="c-desc"></p>
+        <div class="pr tnum" id="c-pr"></div>
+        <p class="memo" id="c-memo"></p>
+        <a class="btn lamp" href="tel:0434973109">このコースを電話で予約</a>
       </div>
     </div>
-    <div class="rail"><div class="bar"></div><div class="hangers" id="hangers">
-<div class="hang" tabindex="0" role="group" aria-label="リラックスコース" data-zones=""><span class="cloth"><video src="media/v2/sabotenhogushi-new/media/v2/room2.mp4" poster="media/v2/sabotenhogushi-new/media/v2/room2.jpg" autoplay muted loop playsinline preload="metadata"></video><span class="tag">リラックス</span><span class="cinfo"><svg class="bmap" viewBox="0 0 200 430" aria-hidden="true"><g class="sil"><circle cx="100" cy="38" r="24"/><rect x="90" y="58" width="20" height="18" rx="6"/><path d="M62 82 Q100 70 138 82 L146 150 Q140 205 128 228 L72 228 Q60 205 54 150 Z"/><path d="M62 84 Q48 90 46 120 L36 225 Q36 236 44 236 L50 236 L58 150 Z"/><path d="M138 84 Q152 90 154 120 L164 225 Q164 236 156 236 L150 236 L142 150 Z"/><path d="M72 226 L128 226 Q132 250 124 270 L118 420 L102 420 L100 280 L98 420 L82 420 L76 270 Q68 250 72 226 Z"/></g><g class="z z-neck"><circle cx="94" cy="66" r="6"/><circle cx="106" cy="66" r="6"/></g><g class="z z-shoulder"><circle cx="80" cy="86" r="7"/><circle cx="120" cy="86" r="7"/></g><g class="z z-waist"><circle cx="88" cy="186" r="7"/><circle cx="112" cy="186" r="7"/></g><g class="z z-arm"><circle cx="46" cy="168" r="7"/><circle cx="154" cy="168" r="7"/><circle cx="40" cy="215" r="7"/><circle cx="160" cy="215" r="7"/></g><g class="z z-pelvis"><circle cx="100" cy="236" r="7"/><circle cx="80" cy="240" r="7"/><circle cx="120" cy="240" r="7"/></g><g class="z z-leg"><circle cx="84" cy="300" r="7"/><circle cx="116" cy="300" r="7"/><circle cx="84" cy="360" r="7"/><circle cx="116" cy="360" r="7"/><circle cx="86" cy="410" r="7"/><circle cx="114" cy="410" r="7"/></g></svg><span class="ctext"><span class="latin">Relax course</span><b class="cname">リラックスコース</b><span class="clab">ツボ押しなし・全身リラクゼーション</span><span class="cdesc">やさしい圧で全身をゆるめるリラクゼーションです。ツボ押しはしません。はじめての方や、強い刺激が苦手な方に。</span><dl class="cprice"><div><dt>30分</dt><dd>2,750円</dd></div><div><dt>60分</dt><dd>4,400円</dd></div></dl><p class="cnote">30分はお電話でご相談ください</p><a class="btn solid" href="tel:0434973109">このコースを電話で予約</a></span></span></span></div>
-<div class="hang" tabindex="0" role="group" aria-label="ミックスコース" data-zones="neck shoulder waist"><span class="cloth"><video src="media/v2/sabotenhogushi-new/media/v2/press.mp4" poster="media/v2/sabotenhogushi-new/media/v2/press.jpg" autoplay muted loop playsinline preload="metadata"></video><span class="tag">ミックス</span><span class="cinfo"><svg class="bmap" viewBox="0 0 200 430" aria-hidden="true"><g class="sil"><circle cx="100" cy="38" r="24"/><rect x="90" y="58" width="20" height="18" rx="6"/><path d="M62 82 Q100 70 138 82 L146 150 Q140 205 128 228 L72 228 Q60 205 54 150 Z"/><path d="M62 84 Q48 90 46 120 L36 225 Q36 236 44 236 L50 236 L58 150 Z"/><path d="M138 84 Q152 90 154 120 L164 225 Q164 236 156 236 L150 236 L142 150 Z"/><path d="M72 226 L128 226 Q132 250 124 270 L118 420 L102 420 L100 280 L98 420 L82 420 L76 270 Q68 250 72 226 Z"/></g><g class="z z-neck"><circle cx="94" cy="66" r="6"/><circle cx="106" cy="66" r="6"/></g><g class="z z-shoulder"><circle cx="80" cy="86" r="7"/><circle cx="120" cy="86" r="7"/></g><g class="z z-waist"><circle cx="88" cy="186" r="7"/><circle cx="112" cy="186" r="7"/></g><g class="z z-arm"><circle cx="46" cy="168" r="7"/><circle cx="154" cy="168" r="7"/><circle cx="40" cy="215" r="7"/><circle cx="160" cy="215" r="7"/></g><g class="z z-pelvis"><circle cx="100" cy="236" r="7"/><circle cx="80" cy="240" r="7"/><circle cx="120" cy="240" r="7"/></g><g class="z z-leg"><circle cx="84" cy="300" r="7"/><circle cx="116" cy="300" r="7"/><circle cx="84" cy="360" r="7"/><circle cx="116" cy="360" r="7"/><circle cx="86" cy="410" r="7"/><circle cx="114" cy="410" r="7"/></g></svg><span class="ctext"><span class="latin">Mix course</span><b class="cname">ミックスコース</b><span class="clab">首・肩・腰はツボ押し／ほかはリラクゼーション</span><span class="cdesc">つらくなりやすい首・肩・腰は、ツボを押してしっかり。そのほかの部分は、リラクゼーションでやさしくゆるめます。</span><dl class="cprice"><div><dt>60分</dt><dd>5,500円</dd></div><div><dt>90分</dt><dd>7,700円</dd></div></dl><a class="btn solid" href="tel:0434973109">このコースを電話で予約</a></span></span></span></div>
-<div class="hang" tabindex="0" role="group" aria-label="メンテナンスコース" data-zones="neck shoulder waist arm pelvis leg"><span class="cloth"><video src="media/v2/sabotenhogushi-new/media/v2/back.mp4" poster="media/v2/sabotenhogushi-new/media/v2/back.jpg" autoplay muted loop playsinline preload="metadata"></video><span class="tag">メンテナンス</span><span class="cinfo"><svg class="bmap" viewBox="0 0 200 430" aria-hidden="true"><g class="sil"><circle cx="100" cy="38" r="24"/><rect x="90" y="58" width="20" height="18" rx="6"/><path d="M62 82 Q100 70 138 82 L146 150 Q140 205 128 228 L72 228 Q60 205 54 150 Z"/><path d="M62 84 Q48 90 46 120 L36 225 Q36 236 44 236 L50 236 L58 150 Z"/><path d="M138 84 Q152 90 154 120 L164 225 Q164 236 156 236 L150 236 L142 150 Z"/><path d="M72 226 L128 226 Q132 250 124 270 L118 420 L102 420 L100 280 L98 420 L82 420 L76 270 Q68 250 72 226 Z"/></g><g class="z z-neck"><circle cx="94" cy="66" r="6"/><circle cx="106" cy="66" r="6"/></g><g class="z z-shoulder"><circle cx="80" cy="86" r="7"/><circle cx="120" cy="86" r="7"/></g><g class="z z-waist"><circle cx="88" cy="186" r="7"/><circle cx="112" cy="186" r="7"/></g><g class="z z-arm"><circle cx="46" cy="168" r="7"/><circle cx="154" cy="168" r="7"/><circle cx="40" cy="215" r="7"/><circle cx="160" cy="215" r="7"/></g><g class="z z-pelvis"><circle cx="100" cy="236" r="7"/><circle cx="80" cy="240" r="7"/><circle cx="120" cy="240" r="7"/></g><g class="z z-leg"><circle cx="84" cy="300" r="7"/><circle cx="116" cy="300" r="7"/><circle cx="84" cy="360" r="7"/><circle cx="116" cy="360" r="7"/><circle cx="86" cy="410" r="7"/><circle cx="114" cy="410" r="7"/></g></svg><span class="ctext"><span class="latin">Maintenance course</span><b class="cname">メンテナンスコース</b><span class="clab">首・肩・腰・腕・骨盤・足をツボ押し</span><span class="cdesc">首から足まで、全身のツボを押していく本格コース。骨盤まわりまでしっかり届けます。慢性的なコリや日々の疲れをリセットしたい方に。</span><dl class="cprice"><div><dt>60分</dt><dd>6,600円</dd></div><div><dt>90分</dt><dd>9,900円</dd></div></dl><a class="btn solid" href="tel:0434973109">このコースを電話で予約</a></span></span></span></div>
-    </div></div>
-    <div class="slide-nav"><button type="button" id="prevS" aria-label="前へ">‹</button><span class="slide-count" id="countS">1 / 6</span><button type="button" id="nextS" aria-label="次へ">›</button></div>
-    <div class="wrap"><div class="facts"><span>毎日 11:00–21:00</span><span>駐車場 3〜4台</span><span>2名同時OK</span><span>現金・カード</span><a class="btn solid" href="tel:0434973109">電話で予約 043-497-3109</a></div></div>
-  </section>
+    <p class="note">お支払いは現金・カード。営業時間外のご希望もご相談ください。キャンペーン情報はInstagramにて。</p>
+  </div>
+</section>
 
-  <section id="omoi">
-    <div class="wrap split">
-      <div>
-        <div class="latin">Our Philosophy</div>
-        <h2>終わったあとに、<br>「わあ、すっきりした」を。</h2>
-        <p>さぼてんの施術はツボ押しが中心です。決まった手順をなぞるのではなく、その日いちばんつらい場所をうかがって、時間の多くをそこへ使います。</p>
-        <p>施術中、こちらから話しかけることは基本的にありません。お話ししたいときは、いつでも声をかけてください。黙ってからだを預けたい日も、そのまま眠ってしまっても大丈夫です。</p>
-        <p class="vow">一回一回、全力で向き合う。<br>それが、さぼてんがいちばん大事にしていることです。</p>
-      </div>
-      <figure class="frame reveal" style="margin:0">
-        <video src="media/v2/sabotenhogushi-new/media/v2/press.mp4" poster="media/v2/sabotenhogushi-new/media/v2/press.jpg" autoplay muted loop playsinline preload="metadata" aria-label="ハンドオイルの施術の様子"></video>
-        <figcaption>ハンドオイル</figcaption>
-      </figure>
+<div class="marquee" aria-hidden="true"><div>
+  <span>一手、一手。</span><span class="l">HOGUSHI SABOTEN</span><span>一手、一手。</span><span class="l">HOGUSHI SABOTEN</span><span>一手、一手。</span><span class="l">HOGUSHI SABOTEN</span>
+  <span>一手、一手。</span><span class="l">HOGUSHI SABOTEN</span><span>一手、一手。</span><span class="l">HOGUSHI SABOTEN</span><span>一手、一手。</span><span class="l">HOGUSHI SABOTEN</span>
+</div></div>
+
+<section class="gallery g">
+  <div class="w">
+    <div class="rv"><p class="eyebrow">GALLERY</p><h2>店内のようす</h2></div>
+    <div class="grid rv">
+      <figure class="wide"><img src="img/row.jpg" alt="並んだ施術ベッド" loading="lazy"></figure>
+      <figure class="tall"><img src="img/lamp.jpg" alt="植物とライトのある通路" loading="lazy"></figure>
+      <figure><img src="img/towel.jpg" alt="棚に並ぶタオル" loading="lazy"></figure>
+      <figure><img src="img/bench.jpg" alt="待合のベンチ" loading="lazy"></figure>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="room">
-    <div class="wrap split">
-      <div class="room-grid">
-        <figure class="frame reveal" style="margin:0"><video src="media/v2/sabotenhogushi-new/media/v2/room2.mp4" poster="media/v2/sabotenhogushi-new/media/v2/room2.jpg" autoplay muted loop playsinline preload="metadata" aria-label="光の入る施術室とベッド"></video></figure>
-        <figure class="frame reveal" style="margin:0"><video src="media/v2/sabotenhogushi-new/media/v2/back2.mp4" poster="media/v2/sabotenhogushi-new/media/v2/back2.jpg" autoplay muted loop playsinline preload="metadata" aria-label="並んだベッドと背中の施術"></video></figure>
-      </div>
-      <div>
-        <div class="latin">The Room</div>
-        <h2>おふたりでも、<br>おひとりでも、静かに。</h2>
-        <p>ベッドは2台。おふたりで予約すれば、ほとんどプライベートな空間で、誰にも邪魔されずに過ごせます。おひとりの日も、ゆっくり静かに。</p>
-        <dl class="points">
-          <div><dt>同時施術</dt><dd>2名まで同時にご案内できます</dd></div>
-          <div><dt>服装</dt><dd>パーカーやトレーナー、ジーンズなどは施術者の指や手への負担が大きくなるため、お控えください（指が痛くなります）</dd></div>
-          <div><dt>駐車場</dt><dd>3〜4台。土気駅から車で約2分、徒歩約20分</dd></div>
-        </dl>
-      </div>
+<section class="flow g" id="flow">
+  <div class="w">
+    <div class="rv"><p class="eyebrow">YOUR VISIT</p><h2>ご来店の流れ</h2></div>
+    <ol class="steps rv">
+      <li><b>ご予約</b><p>お電話でご希望の日時とコースをお伝えください。</p></li>
+      <li><b>ご来店</b><p>専用駐車場にお停めください。「入口」の扉からどうぞ。</p></li>
+      <li><b>カウンセリング</b><p>今日いちばんほぐしたい場所と、力加減のお好みをうかがいます。</p></li>
+      <li><b>施術</b><p>気になる部位を重点的に。強さの調整もお気軽に。</p></li>
+      <li><b>お会計</b><p>現金・カードどちらでも。次回のご予約もその場で承ります。</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="info g" id="access">
+  <div class="w two">
+    <div class="rv">
+      <p class="eyebrow">ACCESS</p><h2>店舗情報</h2>
+      <dl class="facts">
+        <div><dt>住所</dt><dd>〒267-0061<br>千葉県千葉市緑区土気町</dd></div>
+        <div><dt>電話</dt><dd><span class="tnum" id="telno">043-497-3109</span><button class="copy" id="copy" type="button">番号をコピー</button></dd></div>
+        <div><dt>営業</dt><dd>毎日 11:00〜21:00（年中無休）<small>時間外もご相談ください</small></dd></div>
+        <div><dt>駐車場</dt><dd>専用駐車場 3〜4台</dd></div>
+        <div><dt>アクセス</dt><dd>土気駅から車で約2分<small>徒歩なら約20分</small></dd></div>
+        <div><dt>支払</dt><dd>現金・カード</dd></div>
+      </dl>
+      <a class="btn line" href="https://www.google.com/maps/search/?api=1&query=%E3%81%BB%E3%81%90%E3%81%97%E5%87%A6%E3%81%95%E3%81%BC%E3%81%A6%E3%82%93+%E5%9C%9F%E6%B0%97" target="_blank" rel="noopener">Googleマップで見る</a>
     </div>
-  </section>
-
-  <div class="mq" aria-hidden="true"><div>一手、一手。　HOGUSHI SABOTEN　一手、一手。　HOGUSHI SABOTEN　一手、一手。　HOGUSHI SABOTEN　一手、一手。　HOGUSHI SABOTEN　</div></div>
-  <section id="menu" class="hands">
-    <div class="wrap">
-      <div class="latin">Menu &amp; Price</div>
-      <h2>コースと料金</h2>
-      <p>すべて税込。その日の体調やご希望に合わせて、施術内容を調整します。</p>
-      <div class="menu">
-        <article class="course">
-          <div class="latin">Relax</div><h3>リラックス</h3>
-          <p>やさしい圧で全身をゆるめる、はじめての方にもおすすめのコース。</p>
-          <dl class="price">
-            <div><dt>30分</dt><dd>2,750<small>円</small></dd></div>
-            <div><dt>60分</dt><dd>4,400<small>円</small></dd></div>
-            <span class="note">30分はお電話でご相談ください</span>
-          </dl>
-        </article>
-        <article class="course">
-          <div class="latin">Mix</div><h3>ミックス</h3>
-          <p>心地よさと、しっかりほぐす手技をひとつに。首・肩・腰をツボ押しで重点的に。</p>
-          <dl class="price">
-            <div><dt>60分</dt><dd>5,500<small>円</small></dd></div>
-            <div><dt>90分</dt><dd>7,700<small>円</small></dd></div>
-          </dl>
-        </article>
-        <article class="course">
-          <div class="latin">Maintenance</div><h3>メンテナンス</h3>
-          <p>慢性的なコリや日々の疲れをリセット。深部まで時間をかけて、からだを整える本格コース。</p>
-          <dl class="price">
-            <div><dt>60分</dt><dd>6,600<small>円</small></dd></div>
-            <div><dt>90分</dt><dd>9,900<small>円</small></dd></div>
-          </dl>
-        </article>
-      </div>
-      <div class="menu-foot"><span>お支払いは現金・カード</span><span>営業時間外のご希望もご相談ください</span><span>キャンペーン情報はInstagramにて</span></div>
+    <div class="rv">
+      <p class="eyebrow">BEFORE YOU COME</p><h2>ご来店の前に</h2>
+      <ul class="rules">
+        <li>パーカーやトレーナー、ジーンズなどは施術者の指や手への負担が大きくなるため、お控えください。</li>
+        <li>リラックスコースはツボ押しなしです。コリの改善や強めの施術をご希望の方は、ミックス以上をどうぞ。</li>
+        <li>足ツボは衛生面からお断りすることがあります。</li>
+        <li>Instagramフォロワーさまは現金払いで10%OFF。</li>
+      </ul>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="flow">
-    <div class="wrap">
-      <div class="latin">Your Visit</div>
-      <h2>ご来店の流れ</h2>
-      <ol class="flow">
-        <li><b>ご予約</b><span>お電話でご希望の日時とコースをお伝えください。</span></li>
-        <li><b>ご来店</b><span>専用駐車場にお停めください。「入口」の扉からどうぞ。</span></li>
-        <li><b>カウンセリング</b><span>今日いちばんほぐしたい場所と、力加減のお好みをうかがいます。</span></li>
-        <li><b>施術</b><span>気になる部位を重点的に。強さの調整もお気軽に。</span></li>
-        <li><b>お会計</b><span>現金・カードどちらでも。次回のご予約もその場で承ります。</span></li>
-      </ol>
+<section class="close g">
+  <div class="bg"><img src="img/hero.jpg" alt="" loading="lazy"></div>
+  <div class="in w rv">
+    <p class="eyebrow">RESERVATION</p>
+    <h2>今日のからだに、<br>ご褒美の時間を。</h2>
+    <p>日頃のつらさを我慢しているあなたへ。ご予約・ご相談はお電話で、毎日 11:00〜21:00。</p>
+    <div class="cta">
+      <a class="btn lamp tnum" href="tel:0434973109">電話で予約 043-497-3109</a>
+      <a class="btn line" href="https://www.instagram.com/sabotenhogushi/" target="_blank" rel="noopener">Instagramを見る</a>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="access" class="hands">
-    <div class="wrap split">
-      <div>
-        <div class="latin">Access</div>
-        <h2>店舗情報</h2>
-        <dl class="info">
-          <div><dt>店名</dt><dd>ほぐし処さぼてん</dd></div>
-          <div><dt>住所</dt><dd>〒267-0061 千葉県千葉市緑区土気町</dd></div>
-          <div><dt>電話</dt><dd><span id="telText">043-497-3109</span><button class="copy" id="copyTel" type="button">番号をコピー</button></dd></div>
-          <div><dt>営業</dt><dd>毎日 11:00〜21:00（年中無休）<br>時間外もご相談ください</dd></div>
-          <div><dt>駐車場</dt><dd>専用駐車場 3〜4台</dd></div>
-          <div><dt>アクセス</dt><dd>土気駅から車で約2分・徒歩約20分</dd></div>
-          <div><dt>支払</dt><dd>現金・カード</dd></div>
-        </dl>
-        <div class="cta"><a class="btn ghost" href="https://g.co/kgs/DXG1M1a" target="_blank" rel="noopener">Googleマップで見る</a></div>
-      </div>
-      <figure class="frame reveal" style="margin:0;aspect-ratio:4/5">
-        <img src="media/v2/sabotenhogushi-new/media/v2/flower.jpg" alt="さぼてんの花">
-        <figcaption>さぼてんの花</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section class="close">
-    <div class="wrap">
-      <div class="latin">Reservation</div>
-      <h2>今日のからだに、<br>ご褒美の時間を。</h2>
-      <p>日頃のつらさを我慢しているあなたへ。ご予約・ご相談はお電話で、毎日 11:00〜21:00。</p>
-      <div class="cta">
-        <a class="btn solid" href="tel:0434973109">電話で予約 043-497-3109</a>
-        <a class="btn ghost" href="https://www.instagram.com/sabotenhogushi/" target="_blank" rel="noopener">Instagramを見る</a>
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer><div class="wrap"><span>ほぐし処さぼてん　千葉県千葉市緑区土気町　TEL 043-497-3109</span><span>© 2026 ほぐし処さぼてん</span></div></footer>
-
-<div class="ov" id="ov" hidden><button class="ov-close" id="ovClose" type="button">とじる ✕</button><div id="ovMedia"></div><div class="ov-body"><div class="latin">Hogushi point</div><h2 id="ovTitle"></h2><p id="ovText"></p><a class="btn solid" href="tel:0434973109">この場所をほぐしてもらう 043-497-3109</a></div></div>
-<div class="callbar"><a class="btn solid" href="tel:0434973109">電話で予約</a><a class="btn ghost" href="https://www.instagram.com/sabotenhogushi/" target="_blank" rel="noopener">Instagram</a></div>
+<footer class="g"><span>ほぐし処さぼてん</span><span>千葉県千葉市緑区土気町</span></footer>
 
 <script>
-document.documentElement.classList.add('js');
-(function(){
-  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  document.querySelectorAll('section h2, .vow, .points, .menu, .flow, .info').forEach(function(el){el.classList.add('rise','reveal');});
-  var frames=document.querySelectorAll('.reveal');
-  if('IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(es){es.forEach(function(e){
-      var v=e.target.querySelector('video');
-      if(e.isIntersecting){e.target.classList.add('in'); if(v&&!reduce){var p=v.play(); if(p&&p.catch)p.catch(function(){});}}
-      else if(v){v.pause();}
-    });},{threshold:.12});
-    frames.forEach(function(f){io.observe(f);});
-    // elements already on screen at load stay visible
-    requestAnimationFrame(function(){frames.forEach(function(f){var r=f.getBoundingClientRect(); if(r.top<innerHeight&&r.bottom>0)f.classList.add('in');});});
-  } else { frames.forEach(function(f){f.classList.add('in');}); }
-  if(reduce){document.querySelectorAll('video').forEach(function(v){v.removeAttribute('autoplay');v.pause();});}
-  var hs=[].slice.call(document.querySelectorAll('.hang')), st=hs.map(function(){return {a:0,v:0}}), last=null;
-  if(!reduce){
-    st.forEach(function(o,i){o.v=(i%2?1:-1)*(1.2+i*.25);});
-    window.addEventListener('pointermove',function(e){
-      if(last){var dx=e.clientX-last.x;
-        hs.forEach(function(h,i){var r=h.getBoundingClientRect(); if(e.clientX>r.left-20&&e.clientX<r.right+20&&e.clientY>r.top&&e.clientY<r.bottom){st[i].v+=dx*.35*(1-(e.clientY-r.top)/r.height*.3);}});}
-      last={x:e.clientX,y:e.clientY};},{passive:true});
-    (function loop(){st.forEach(function(o,i){o.v+=-o.a*.035; o.v*=.955; o.a+=o.v*.16; if(o.a>28)o.a=28; if(o.a<-28)o.a=-28;
-      hs[i].style.setProperty('--r',o.a.toFixed(2)+'deg'); hs[i].querySelector('.cloth').style.setProperty('--sk',(-o.v*.6).toFixed(2)+'deg');});
-      requestAnimationFrame(loop);})();
-    setInterval(function(){var i=Math.floor(Math.random()*st.length); st[i].v+=(Math.random()-.5)*2.4;},2600);
-  }
-  // course panels
-  function pick(i){hs.forEach(function(h,j){h.classList.toggle('on',i===j);});}
-  hs.forEach(function(h,i){
-    var z=(h.dataset.zones||'').split(' ').filter(Boolean);
-    h.querySelectorAll('.z').forEach(function(g){g.classList.toggle('act',z.some(function(k){return g.classList.contains('z-'+k);}));});
-    if(!z.length)h.classList.add('soft');
-    h.addEventListener('pointerenter',function(e){if(e.pointerType==='mouse')pick(i);});
-    h.addEventListener('click',function(e){pick(i);e.stopImmediatePropagation();},true);
-    h.addEventListener('focus',function(){pick(i);});
-    h.addEventListener('pointermove',function(e){var r=h.getBoundingClientRect();h.querySelector('.cloth').style.setProperty('--px',(((e.clientX-r.left)/r.width-.5)*-24).toFixed(1)+'px');});
-  });
-  pick(1);
-  // stronger scroll motion
-  document.querySelectorAll('main h2').forEach(function(h){var n=0;[].slice.call(h.childNodes).forEach(function(t){if(t.nodeType===3){var f=document.createDocumentFragment();t.textContent.split('').forEach(function(ch){var sp=document.createElement('span');sp.className='c';sp.style.setProperty('--d',n++);sp.textContent=ch;f.appendChild(sp);});h.replaceChild(f,t);}});h.classList.add('reveal');});
-  document.querySelectorAll('.info div').forEach(function(d,i){d.style.setProperty('--d',i);});
-  document.querySelectorAll('.course').forEach(function(c){c.addEventListener('pointermove',function(e){var r=c.getBoundingClientRect();c.style.setProperty('--ry',((e.clientX-r.left)/r.width-.5)*10+'deg');c.style.setProperty('--rx',-((e.clientY-r.top)/r.height-.5)*10+'deg');});c.addEventListener('pointerleave',function(){c.style.setProperty('--rx','0');c.style.setProperty('--ry','0');});});
-  if(!reduce){var mqs=document.querySelectorAll('.mq div'),fl=document.querySelector('.flow'),lis=fl?fl.querySelectorAll('li'):[],media=document.querySelectorAll('.frame video,.frame img'),tk=false;
-    function onScroll(){tk=false;var h=innerHeight;
-      mqs.forEach(function(m,i){var r=m.parentElement.getBoundingClientRect();m.style.setProperty('--mx',((r.top-h)*(i%2?.6:-.6)-200)+'px');});
-      media.forEach(function(v){var r=v.parentElement.getBoundingClientRect();v.style.setProperty('--py',((r.top+r.height/2-h/2)*-.12).toFixed(1)+'px');});
-      if(fl){var r=fl.getBoundingClientRect(),p=Math.max(0,Math.min(1,(h*.8-r.top)/(r.height+h*.4)));fl.style.setProperty('--fp',p.toFixed(3));lis.forEach(function(li,i){li.classList.toggle('lit',p>i/lis.length);});}}
-    window.addEventListener('scroll',function(){if(!tk){tk=true;requestAnimationFrame(onScroll);}},{passive:true});onScroll();
-  } else {document.querySelectorAll('.flow li').forEach(function(l){l.classList.add('lit');});}
-  var ov=document.getElementById('ov'), om=document.getElementById('ovMedia'), cur=null;
-  function setClip(r){ov.style.setProperty('--ct',r.top+'px');ov.style.setProperty('--cl',r.left+'px');ov.style.setProperty('--cr',(innerWidth-r.right)+'px');ov.style.setProperty('--cb',(innerHeight-r.bottom)+'px');}
-  hs.forEach(function(h){h.addEventListener('click',function(){
-    cur=h; var r=h.querySelector('.cloth').getBoundingClientRect();
-    om.innerHTML=h.dataset.kind==='video'?'<video src="'+h.dataset.src+'" poster="'+h.dataset.poster+'" autoplay muted loop playsinline></video>':'<img src="'+h.dataset.src+'" alt="">';
-    document.getElementById('ovTitle').textContent=h.dataset.title; document.getElementById('ovText').textContent=h.dataset.text;
-    ov.style.transition='none'; setClip(r); ov.hidden=false; ov.offsetHeight; ov.style.transition='';
-    requestAnimationFrame(function(){['--ct','--cl','--cr','--cb'].forEach(function(k){ov.style.setProperty(k,'0px');}); ov.classList.add('open');});
-    document.body.style.overflow='hidden'; document.getElementById('ovClose').focus();
-  });});
-  function closeOv(){ if(ov.hidden)return; ov.classList.remove('open'); if(cur)setClip(cur.querySelector('.cloth').getBoundingClientRect());
-    setTimeout(function(){ov.hidden=true; om.innerHTML=''; document.body.style.overflow=''; if(cur)cur.focus();}, reduce?0:760);}
-  document.getElementById('ovClose').addEventListener('click',closeOv);
-  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeOv();});
-  var btn=document.getElementById('copyTel');
-  btn.addEventListener('click',function(){
-    var t='043-497-3109';
-    function sel(){var r=document.createRange();r.selectNodeContents(document.getElementById('telText'));var s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent='選択しました';}
-    try{navigator.clipboard.writeText(t).then(function(){btn.textContent='コピーしました';},sel);}catch(e){sel();}
-  });
-})();
-</script>
+const C={
+  relax:{en:"RELAX COURSE",n:"リラックスコース",a:"ツボ押しなし・全身リラクゼーション",d:"やさしい圧で全身をゆるめるリラクゼーションです。ツボ押しはしません。はじめての方や、強い刺激が苦手な方に。",p:[["30分","2,750"],["60分","4,400"]],m:"30分はお電話でご相談ください",z:[]},
+  mix:{en:"MIX COURSE",n:"ミックスコース",a:"首・肩・腰はツボ押し／ほかはリラクゼーション",d:"つらくなりやすい首・肩・腰は、ツボを押してしっかり。そのほかの部分は、リラクゼーションでやさしくゆるめます。",p:[["60分","5,500"],["90分","7,700"]],m:"",z:["neck","shoulder","waist"]},
+  mnt:{en:"MAINTENANCE COURSE",n:"メンテナンスコース",a:"首・肩・腰・腕・骨盤・足をツボ押し",d:"首から足まで、全身のツボを押していく本格コース。骨盤まわりまでしっかり届けます。慢性的なコリや日々の疲れをリセットしたい方に。",p:[["60分","6,600"],["90分","9,900"]],m:"",z:["neck","shoulder","waist","arm","pelvis","leg"]}
+};
+const $=id=>document.getElementById(id);
+function show(k){
+  const c=C[k];
+  document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected',t.dataset.c===k));
+  $('c-en').textContent=c.en;$('c-name').textContent=c.n;$('c-area').textContent=c.a;$('c-desc').textContent=c.d;$('c-memo').textContent=c.m;
+  $('c-pr').innerHTML=c.p.map(x=>`<div><span>${x[0]}</span><b>${x[1]}<small>円</small></b></div>`).join('');
+  document.querySelectorAll('.pt').forEach(p=>p.classList.toggle('on',c.z.includes(p.dataset.a)));
+}
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>show(t.dataset.c)));
+show('mix');
 
+$('copy').addEventListener('click',()=>{
+  const b=$('copy');
+  const done=()=>{b.textContent='コピーしました';setTimeout(()=>b.textContent='番号をコピー',1800)};
+  try{navigator.clipboard.writeText('043-497-3109').then(done,()=>{getSelection().selectAllChildren($('telno'))})}catch(e){getSelection().selectAllChildren($('telno'))}
+});
+
+const nav=$('nav'),bands=[...document.querySelectorAll('.band .ph')],reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function onScroll(){
+  nav.classList.toggle('solid',scrollY>40);
+  if(reduce)return;
+  const h=innerHeight;
+  bands.forEach(p=>{const r=p.parentElement.getBoundingClientRect();if(r.bottom<0||r.top>h)return;p.style.transform=`translateY(${(r.top+r.height/2-h/2)/h*-60}px)`});
+}
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+if('IntersectionObserver' in window&&!reduce){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.remove('pre');io.unobserve(e.target)}}),{threshold:.12});
+  document.querySelectorAll('.rv').forEach(el=>{if(el.getBoundingClientRect().top>innerHeight){el.classList.add('pre');io.observe(el)}});
+}
+</script>
 </body>
 </html>
