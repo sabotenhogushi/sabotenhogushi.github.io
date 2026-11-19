@@ -119,6 +119,7 @@ input{display:block;width:100%;margin-top:4px;font:inherit;font-size:16px;color:
 .loading{padding:40px 0;text-align:center;color:var(--mute)}
 @media (prefers-reduced-motion:no-preference){.cell,.opt,.cta{transition:background .15s,color .15s,border-color .15s}}
 .rng input{width:100%;box-sizing:border-box;max-width:100%}.rngb{display:grid;gap:8px;margin:10px 0 4px}
+.rng select{width:100%;box-sizing:border-box}.wlist{list-style:none;padding:0;margin:8px 0}.wlist li{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--closed)}.wlist button{padding:4px 12px;min-height:0}
 </style>
 </head>
 <body>
@@ -200,7 +201,7 @@ var Mock=(function(){
     api_adminSetPass:function(p,c){pin(p);pass=String(c||'').trim().slice(0,30);return{ok:true,passcode:pass}},
     api_adminBook:function(p,r){pin(p);return book(r,true)},
     api_adminCancel:function(p,id){pin(p);B.forEach(function(b){if(b.id===id)b.status='キャンセル'});return{ok:true}},
-    api_adminSetClosedRange:function(p,f,t,c){pin(p);if(!f)return{ok:false,msg:'開始日を選んでください。'};if(!t)t=f;if(t<f){var x=f;f=t;t=x}for(var d=new Date(f+'T00:00:00Z');d.toISOString().slice(0,10)<=t;d=new Date(d.getTime()+86400000)){var s=d.toISOString().slice(0,10),i=closed.indexOf(s);if(c&&i<0)closed.push(s);if(!c&&i>=0)closed.splice(i,1)}return{ok:true}},api_adminToggleClosed:function(p,d){pin(p);var i=closed.indexOf(d);if(i>=0)closed.splice(i,1);else closed.push(d);return{ok:true,closed:i<0}}
+    api_adminSetClosedRange:function(p,f,t,c){pin(p);if(!f)return{ok:false,msg:'開始日を選んでください。'};if(!t)t=f;if(t<f){var x=f;f=t;t=x}for(var d=new Date(f+'T00:00:00Z');d.toISOString().slice(0,10)<=t;d=new Date(d.getTime()+86400000)){var s=d.toISOString().slice(0,10),i=closed.indexOf(s);if(c&&i<0)closed.push(s);if(!c&&i>=0)closed.splice(i,1)}return{ok:true}},api_adminAddWeekly:function(p,w,s,e){pin(p);return{ok:true}},api_adminDelWeekly:function(p,i){pin(p);return{ok:true}},api_adminToggleClosed:function(p,d){pin(p);var i=closed.indexOf(d);if(i>=0)closed.splice(i,1);else closed.push(d);return{ok:true,closed:i<0}}
   };
 })();
 
@@ -392,7 +393,7 @@ function aClosed(){
     '<p>今の合言葉：<b>'+(cur?esc(cur):'なし（誰でも見られます）')+'</b></p>'+
     '<label for="a-pass">新しい合言葉</label><input id="a-pass" data-f="newpass" autocomplete="off" value="'+esc(val)+'">'+
     '<button class="cta" data-a="setpass"'+(S.busy?' disabled':'')+'>合言葉を保存</button></section>'+
-    '<section class="panel"><h2>休業日</h2><p class="mute small">押すと休み／営業が切り替わります。休みの日はお客様の画面で「休」になります。</p><h3 style="font-size:1rem;margin:14px 0 6px">期間をまとめて設定</h3><div class="rng"><label for="c-from">開始日</label><input id="c-from" type="date" data-f="cfrom" value="'+esc(S.cfrom||'')+'"><label for="c-to">終了日（1日だけなら空欄）</label><input id="c-to" type="date" data-f="cto" value="'+esc(S.cto||'')+'"><div class="rngb"><button class="cta" data-a="rangeclose">この期間を休みにする</button><button class="ghost" data-a="rangeopen">この期間を営業に戻す</button></div></div><h3 style="font-size:1rem;margin:14px 0 6px">1日ずつ切り替え</h3><div class="closelist">'+
+    '<section class="panel"><h2>毎週の予定</h2><p class="mute small">毎週決まった曜日・時間を埋めます。その時間はお客様の画面で×になります。</p>'+((S.ad.weekly||[]).length?'<ul class="wlist">'+S.ad.weekly.map(function(x,i){return '<li><span>毎週'+'日月火水木金土'.charAt(x.w)+'曜　'+esc(x.s)+'〜'+esc(x.e)+'</span><button class="ghost" data-a="wdel" data-v="'+i+'">削除</button></li>'}).join('')+'</ul>':'<p class="mute small">まだ登録はありません。</p>')+'<div class="rng"><label for="w-w">曜日</label><select id="w-w" data-f="ww">'+[0,1,2,3,4,5,6].map(function(i){return '<option value="'+i+'"'+(String(i)===String(S.ww||'0')?' selected':'')+'>'+'日月火水木金土'.charAt(i)+'曜日</option>'}).join('')+'</select><label for="w-s">開始</label><input id="w-s" type="time" step="1800" data-f="ws" value="'+esc(S.ws||'')+'"><label for="w-e">終了</label><input id="w-e" type="time" step="1800" data-f="we" value="'+esc(S.we||'')+'"><div class="rngb"><button class="cta" data-a="wadd">毎週の予定を追加</button></div></div>'+(S.werr?'<p class="err" role="alert">'+esc(S.werr)+'</p>':'')+'</section>'+'<section class="panel"><h2>休業日</h2><p class="mute small">押すと休み／営業が切り替わります。休みの日はお客様の画面で「休」になります。</p><h3 style="font-size:1rem;margin:14px 0 6px">期間をまとめて設定</h3><div class="rng"><label for="c-from">開始日</label><input id="c-from" type="date" data-f="cfrom" value="'+esc(S.cfrom||'')+'"><label for="c-to">終了日（1日だけなら空欄）</label><input id="c-to" type="date" data-f="cto" value="'+esc(S.cto||'')+'"><div class="rngb"><button class="cta" data-a="rangeclose">この期間を休みにする</button><button class="ghost" data-a="rangeopen">この期間を営業に戻す</button></div></div><h3 style="font-size:1rem;margin:14px 0 6px">1日ずつ切り替え</h3><div class="closelist">'+
     S.ad.days.map(function(d){return '<button data-a="toggle" data-v="'+d.date+'" aria-pressed="'+d.closed+'"><span>'+md(d.date)+'</span><span>'+(d.closed?'休み':'営業')+'</span></button>'}).join('')+'</div>'+
     (S.err?'<p class="err" role="alert">'+esc(S.err)+'</p>':'')+'</section>';
 }
@@ -460,6 +461,8 @@ document.addEventListener('click',function(e){
   else if(a==='cancelno'){S.cf=null}
   else if(a==='cancel2'){S.cf=null;call('api_adminCancel',S.pin,v).then(loadAdmin).catch(function(e){S.err=errMsg(e);render()});return}
   else if(a==='rangeclose'||a==='rangeopen'){S.err='';call('api_adminSetClosedRange',S.pin,S.cfrom||'',S.cto||'',a==='rangeclose').then(function(r){if(r&&r.ok===false){S.err=r.msg;render();return}S.cfrom='';S.cto='';return loadAdmin()}).catch(function(e){S.err=errMsg(e);render()});return}
+  else if(a==='wadd'){S.werr='';call('api_adminAddWeekly',S.pin,S.ww||'0',S.ws||'',S.we||'').then(function(r){if(r&&r.ok===false){S.werr=r.msg;render();return}S.ws='';S.we='';return loadAdmin()}).catch(function(e){S.werr=errMsg(e);render()});return}
+  else if(a==='wdel'){S.werr='';call('api_adminDelWeekly',S.pin,Number(v)).then(loadAdmin).catch(function(e){S.werr=errMsg(e);render()});return}
   else if(a==='toggle'){call('api_adminToggleClosed',S.pin,v).then(loadAdmin).catch(function(e){S.err=errMsg(e);render()});return}
   render();
 });
